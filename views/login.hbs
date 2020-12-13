@@ -1,0 +1,63 @@
+<form id="ingreso" style="padding-left: 600px; width: 1300px;padding-top: 50px;">
+  <h2 style="text-align: center;">Ingreso</h2>
+  <div class="form-group" style="margin-top: 30px;">
+    <label for="exampleInputEmail1">Correo electrónico</label>
+    <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" />
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Contraseña</label>
+    <input type="password" class="form-control" id="contraseña" />
+    <small id="emailHelp" class="form-text text-muted">Nunca compartas tu contraseña con nadie</small>
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1">No soy un robot</label>
+  </div>
+  <button type="submit" class="btn btn-secundary" style="background-color: #666666; color: white;" role="Ingresar">
+    Entrar
+  </button>
+</form>
+<a href="#" data-toggle="modal" data-target="#exampleModalCenter" style="margin-left: 1150px;">Olvide mi
+  contraseña</a>
+<div style="padding-top: 30px; text-align: center; color: white;">
+  <h3>
+    ¿No tienes una cuenta?
+    <a class="btn btn-secundary" style="background-color: #666666; color: white;"
+      href="http://localhost:3000/register/" role="Ingresar">Registrate ahora!</a>
+  </h3>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="background-color: #343a40; color: white;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          Cambio de contraseña
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Correo electrónico</label>
+          <input type="text" class="form-control" id="inputMail" placeholder="ejemplo@hotmail.com" />
+          <label for="exampleInputPassword1">Nueva contraseña</label>
+          <input type="password" class="form-control" id="inputPass" placeholder="Contraseña nueva" />
+          <label for="exampleInputPassword1">Confirmar contraseña</label>
+          <input type="password" class="form-control" id="inputNewPass" placeholder="Confirmar contraseña" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cancelar
+        </button>
+        <button id="modalBotonSalvar" class="btn btn-primary">
+          Guardar cambios
+        </button>
+      </div>
+      <!--<meta http-equiv="refresh" content="2" />-->
+    </div>
+  </div>
+</div>
+<hr style="height: 21vh;border-color:white">
