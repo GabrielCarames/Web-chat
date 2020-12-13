@@ -1,48 +1,73 @@
 <!DOCTYPE html>
-<html style="background-color: rgb(41, 41, 41);">
+<html>
 
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/css/uikit.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/js/uikit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/js/uikit-icons.min.js"></script>
-  <title>Inicio</title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/config.css">
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/css/uikit.min.css" />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <title>Inicio</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" uk-navbar>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left:43%;">
-          <li class="nav-item active">
-            <a class="navbar-brand" href="#">Inicio <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="navbar-brand" href="#">Registro <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="navbar-brand" href="#">Logueo <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(74, 0, 134);text-">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left:44%;">
+        <li class="nav-item active">
+          <a class="navbar-brand" href="#" style="color:white">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="navbar-brand" href="#" style="color:white">Registro <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="navbar-brand" href="#" style="color:white">Logueo <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div style="margin-top: 20px;">
     {{{body}}}
   </div>
+
+  <footer>
+    <div id="footer" class="footer">
+      <div class="row d-flex align-items-center" style="background-color:#0e0c0c">
+        <div class="col-4">
+          <div class="row d-flex align-items-center">
+            <a class="col-3 text-white" href="http://localhost:3000/index/terminosycondiciones">Contacto</a>
+            <a class="col-3 text-white" href="http://localhost:3000/index/terminosycondiciones">Terminos y
+              condiciones</a>
+          </div>
+        </div>
+        <!--FUA MIRA ESTE TRUCO SAQUE COMO COMENTAR EN HTML CALATE ESTA PELOTUDO-->
+        <div class="col-4">
+          <img src="/imagenes/index/falg_footer.png" style="padding-top: 10px;">
+          <div style="padding-right: 10px;">©2020 Arne, Inc.</div>
+          <div style="padding-right: 10px;">All Rights Reserved</div>
+        </div>
+        <div class="col-4">
+          <a href="https://facebook.com/"><img src="https://www.flaticon.es/svg/static/icons/svg/179/179319.svg"
+              style=" width: 70px;"> </a>
+          <a href="https://twitter.com/"><img src="https://www.flaticon.es/svg/static/icons/svg/145/145812.svg"
+              style=" width: 70px;"> </a>
+          <a href="https://gmail.com/"><img src="https://www.flaticon.es/svg/static/icons/svg/732/732200.svg"
+              style=" width: 70px;"></a>
+          <a href="http://localhost:3000/index/descarga"><img src="https://i.postimg.cc/YCb1PwwK/sa.pngstyle="
+              style="width: 70px;"> </a>
+          <div class=row>
+            <div class=row>
+            </div>
+          </div>
+        </div>
+      </div>
+  </footer>
 </body>
 
 </html>
