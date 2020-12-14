@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+require("./db");
 
 // routes
 app.use('/', indexRouter);
@@ -46,6 +47,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('partials/error', {layout: false});
 });
+
 
 
 module.exports = app;

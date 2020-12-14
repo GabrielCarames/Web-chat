@@ -3,7 +3,7 @@
   <div class="form-row" style="margin-top: 30px;">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Nombre de usuario</label>
-      <input type="text" class="form-control" id="name">
+      <input type="text" class="form-control" id="username">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Contraseña</label>
@@ -40,11 +40,32 @@
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-secundary" style="background-color: #666666;color: white;"
-    role="registro">Registrarse</button>
+  <button type="button" class="btn btn-secundary" style="background-color: #666666;color: white;"
+    role="registro" onclick="enviardatos()">Registrarse</button>
 </form>
 <div style="padding-top: 30px;text-align: center;color: white;">
   <h3>¿Ya tienes una cuenta? <a class="btn btn-secundary" style="background-color: #666666;color: white;"
       href="http://localhost:3000/login/" role="Ingresar">Ingresa ahora!</a> </h3>
 </div>
 <hr style="height: 21vh;border-color:white">
+
+<script>
+  function enviardatos(){
+      $.ajax({
+        url: 'http://localhost:3000/user/register',
+        type: 'POST',
+        data:
+        {
+          username: $("#username").val(),
+          password: $("#password").val(),
+          email: $("#email").val(),
+          country: $("#country").val(),
+          gender: $("#gender").val()
+        },
+        success: function (result) {
+          alert("Registro correcto");
+          location.href = "http://localhost:3000/";
+        }
+      });
+    }
+</script>
