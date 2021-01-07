@@ -50,6 +50,4 @@ app.use(function(err, req, res, next) {
   res.render('partials/error', {layout: false});
 });
 
-
-
 module.exports = app;

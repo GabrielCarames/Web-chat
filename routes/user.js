@@ -15,16 +15,13 @@ router.get('/register', function(req, res, next) {
 });
 
 router.post('/register', async function(req, res, next) {
-  console.log(req.body)
-  const {username, password, email, country, gender} = req.body
+  const { username, password, email, country, gender } = req.body
   const newuser = new User({
     username, password, email, country, gender
   })
+
   await newuser.save()
-  console.log(newuser)
-  res.send({
-    status : true
-  });
+  res.send({ status : true });
 });
 
 module.exports = router;
