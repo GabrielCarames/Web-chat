@@ -6,5 +6,5 @@ mongoose.connect(url, {
     useFindAndModify: false,
     useCreateIndex: true
 })
-.catch(error => console.log("error"))
+.catch(error => console.log(error))
 .then(db => console.log("hola te conectaste c.i"))
