@@ -1,0 +1,17 @@
+#container{
+    margin-top: 50px;
+    max-width: 1600px;
+    height: 1000px;
+}
+#contact{
+    height: 80px;
+}
+#text{
+    height: 600px;
+}
+#friendsOne, #friendsTwo{
+    height: 100px;
+}
+#options{
+    height: 50px;
+}

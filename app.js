@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 // dir routes
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
-var webRouter = require('./routes/web');
+var webchatRouter = require('./routes/webchat');
 
 var app = express();
 
@@ -32,7 +32,7 @@ require("./db");
 // routes
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/web', webRouter);
+app.use('/webchat', webchatRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
