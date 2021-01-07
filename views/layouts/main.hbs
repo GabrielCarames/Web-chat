@@ -24,7 +24,6 @@
 </head>
 
 <body>
-
   <nav id="navbar" class="uk-navbar-container" uk-navbar>
 
     <div class="uk-navbar-center">
@@ -39,7 +38,8 @@
       <div>
         <ul class="uk-navbar-nav">
           <li><a href="/user/login"><button class="uk-button uk-button-default text-white">Ingresar</button></a></li>
-          <li><a href="/user/register"><button class="uk-button uk-button-default text-white">Registrar</button></a></li>
+          <li><a href="/user/register"><button class="uk-button uk-button-default text-white">Registrar</button></a>
+          </li>
         </ul>
       </div>
     </div>
@@ -50,10 +50,9 @@
     {{{body}}}
   </section>
 
-  <div uk-scrollspy="cls: uk-animation-fade; target: .footer; delay: 500; repeat: true">
+  <div uk-scrollspy="cls: uk-animation-fade; target: .footer; delay: 1; repeat: true">
     <footer class="footer">
       <div class="hola d-flex flex-row d-flex bd-highlight">
-
         <div class="mr-auto p-2 bd-highlight">
           <ul class="uk-navbar-nav pl-4">
             <li class="uk-active"><a href="/" class="text-white">Contacto</a></li>
@@ -64,11 +63,13 @@
         <div class="p-2 bd-highlight text-white">Facebook</div>
         <div class="p-2 bd-highlight text-white">Twitter</div>
       </div>
+      <div>
+        <div class="d-flex flex-row align-items-center">
+        <p style="text-align: center;">Copyright Parches</p>
+      </div>
+      </div>
+      
 
-  </div>
-
-  <div class="d-flex flex-row align-items-center">
-    <p class="uk-text-muted">Copyright Parches</p>
   </div>
 
   </footer>

@@ -1,0 +1,11 @@
+#content{
+    background-color: #24263d;
+}
+#inside{
+    background-color: #3c3f62;
+}
+#below{
+    height: 200px;
+    background-color: #fff;
+    align-items: center;
+}
