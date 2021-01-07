@@ -4,7 +4,7 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-
+var bodyParser = require('body-parser');
 // dir routes
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
@@ -27,6 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false})),
 require("./db");
 
 // routes
@@ -50,4 +52,8 @@ app.use(function(err, req, res, next) {
   res.render('partials/error', {layout: false});
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 7e93f60... Revert "ya esta lo minimo para mandar y mostrar mensajes"
 module.exports = app;
