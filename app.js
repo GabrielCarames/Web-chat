@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session'); 
 
-db.sequelize.sync();
 require('./passport/authenticator');
 
 // dir routes
@@ -48,6 +47,12 @@ app.use('/webchat', webchatRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.use(session({
+  secret: "clave super secreta",
+  resave: false,
+  saveUninitialized: true
+}));
 
 // error handler
 app.use(function(err, req, res, next) {
