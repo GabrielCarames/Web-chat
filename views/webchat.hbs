@@ -8,6 +8,7 @@
     <div id="text" class="container">
         <div id="chat" class="row">
             <div id="messages">
+                
             </div>
         </div>
         <div class="row" style="background-color: yellow;">
@@ -51,10 +52,13 @@
     </div>
 </div>
 <script>
+    src="/socket.io/socket.io.js"
+    var socket = io();
+
+socket.on('message', addMessages)
     $(() => {
         $("#send").click(() => {
             sendMessage({
-                name: $("#name").val(),
                 message: $("#message").val()
             });
         })

@@ -13,6 +13,7 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "hbs": "^4.1.1",
+    "http": "0.0.1-security",
     "http-errors": "~1.6.3",
     "mongoose": "^5.11.7",
     "morgan": "~1.9.1",
