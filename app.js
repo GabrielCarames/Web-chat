@@ -7,6 +7,11 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session'); 
+
+require('./passport/authenticator');
+
 // dir routes
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
@@ -37,7 +42,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false})),
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(passport.initialize());
+app.use(passport.session());
 require("./db");
 
 // routes
@@ -49,6 +56,12 @@ app.use('/webchat', webchatRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.use(session({
+  secret: "clave super secreta",
+  resave: false,
+  saveUninitialized: true
+}));
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,7 +1,13 @@
 const express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var Message = mongoose.model('Message',{ name : String, message : String})
+const Message = require('../models/message');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', () =>{
+  console.log('se conectó un usuario')
+ })
 
 //const socket = io.connect('http://localhost:3000')
 
@@ -15,12 +21,15 @@ router.get('/messages', (req, res) => {
   })
 })
 
-router.post('/messages', (req, res) => {
-  console.log("HOLA?????????????????????")
-  var message = new Message(req.body);
-  message.save((err) =>{
+router.post('/messages', async (req, res) => {
+  const {message} = req.body;
+  const newMessage = new Message({message});
+
+  await newMessage.save();
+  newMessage.save((err) =>{
     if(err)
       sendStatus(500);
+    io.emit('message', req.body);
     res.sendStatus(200);
   })
 })

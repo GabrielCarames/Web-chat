@@ -7,7 +7,21 @@
     height: 80px;
 }
 #text{
-    height: 600px;
+    background-color: #3c3f62;
+    vertical-align:text-bottom;
+    height: 550px;
+    max-width: 1600px; 
+    padding-left: 0px; 
+    padding-right: 0px;
+}
+#chat{
+    background-color: #3c3f62;
+    color: white;
+    height: 500px;
+}
+#message{
+    width: 96.1%; 
+    height: 50px;
 }
 #friendsOne, #friendsTwo{
     height: 100px;

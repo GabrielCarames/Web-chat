@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 
+
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -15,16 +16,13 @@ router.get('/register', function(req, res, next) {
 });
 
 router.post('/register', async function(req, res, next) {
-  console.log(req.body)
-  const {username, password, email, country, gender} = req.body
+  const { username, password, email, country, gender } = req.body
   const newuser = new User({
     username, password, email, country, gender
   })
+
   await newuser.save()
-  console.log(newuser)
-  res.send({
-    status : true
-  });
+  res.send({ status : true });
 });
 
 module.exports = router;
