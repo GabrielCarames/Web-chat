@@ -1,4 +1,6 @@
 var express = require('express');
+const http = require('http')
+var app = express();
 var exphbs  = require('express-handlebars');
 var createError = require('http-errors');
 var path = require('path');
@@ -9,8 +11,16 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var webchatRouter = require('./routes/webchat');
+var server = http.createServer(app)
+server.listen(3000)a
 
-var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
+
+var io = require('socket.io').listen(server);
+
+io.on('connection', (socket) => {
+  console.log('new connection', socket.id)
+})
 
 // engine settings
 app.engine('hbs', exphbs({
@@ -26,7 +36,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})),
 require("./db");
@@ -51,6 +60,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('partials/error', {layout: false});
 });
-
 
 module.exports = app;
