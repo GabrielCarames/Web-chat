@@ -20,6 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +29,19 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// socket.io configs
+
+io.on('connection', (socket) => {
+  console.log('se conectó un usuarioasdasdas');
+  socket.on('chat:message', (msg) => {
+    io.emit('chat:message', msg);
+    console.log('message: ' + msg);
+  });
+  socket.on('disconnect', () => {
+    console.log('un usuario se fué a la meirda');
+  });
+});
 
 /**
  * Normalize a port into a number, string, or false.
