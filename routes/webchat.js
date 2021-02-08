@@ -22,7 +22,7 @@ router.get('/messages', (req, res) => {
 router.post('/messages', async (req, res) => {
   const {message} = req.body;
   const newMessage = new Message({message});
-
+  console.log('nuevomensaje')
   await newMessage.save();
   newMessage.save((err) =>{
     if(err)
