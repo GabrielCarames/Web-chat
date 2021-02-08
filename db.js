@@ -8,4 +8,4 @@ mongoose.connect(url, {
     useCreateIndex: true
 })
 .catch(error => console.log(error))
-.then(db => console.log("bd de datos conectada", db))
+.then(db => console.log("bd de datos conectada"))
