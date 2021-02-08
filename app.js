@@ -1,12 +1,12 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var createError = require('http-errors');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var session = require('express-session'); 
+const express = require('express');
+const exphbs  = require('express-handlebars');
+const createError = require('http-errors');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session'); 
 
 require('./passport/authenticator');
 
@@ -16,6 +16,13 @@ var userRouter = require('./routes/user');
 var webchatRouter = require('./routes/webchat');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = process.env.PORT || 3000;
+
+http.listen(port, () => {
+  console.log(`Http escuchando en: http://localhost:${port}`);
+});
 
 // engine settings
 app.engine('hbs', exphbs({
@@ -63,6 +70,17 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('partials/error', {layout: false});
+});
+
+io.on('connection', (socket) => {
+  console.log('se conectó un usuario');
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+    console.log('message: ' + msg);
+  });
+  socket.on('disconnect', () => {
+    console.log('un usuario se fué a la meirda');
+  });
 });
 
 module.exports = app;
