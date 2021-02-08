@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 var router = express.Router();
 const Message = require('../models/message');
 var app = express();
@@ -8,6 +8,8 @@ var io = require('socket.io')(http);
 io.on('connection', () =>{
   console.log('se conectó un usuario')
  })
+
+//const socket = io.connect('http://localhost:3000')
 
 router.get('/', function(_req, res, _next) {
   res.render('webchat');
@@ -31,5 +33,18 @@ router.post('/messages', async (req, res) => {
     res.sendStatus(200);
   })
 })
+
+/*let message = document.getElementById('message');
+let username = document.getElementById('username');
+let btn = document.getElementById('btn');
+//let output = document.getElementById('output');
+//let actions = document.getElementById('actions');
+
+btn.addEventListener('click', function(){
+  socket.emit('mimensaje', {
+    message: message.value,
+    username: username.value
+  })
+})*/
 
 module.exports = router;
