@@ -17,14 +17,6 @@ var webchatRouter = require('./routes/webchat');
 
 // socket.io settings
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
-
-// arranque de moto
-http.listen(port, () => {
-  console.log(`Http escuchando en: http://localhost:${port}`);
-});
 
 // engine settings
 app.engine('hbs', exphbs({
@@ -74,17 +66,5 @@ app.use(function(err, req, res, next) {
   res.render('partials/error', {layout: false});
 });
 
-// socket.io configs
-
-io.on('connection', (socket) => {
-  console.log('se conectó un usuarioasdasdas');
-  socket.on('chat:message', (msg) => {
-    io.emit('chat:message', msg);
-    console.log('message: ' + msg);
-  });
-  socket.on('disconnect', () => {
-    console.log('un usuario se fué a la meirda');
-  });
-});
 
 module.exports = app;
