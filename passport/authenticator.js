@@ -35,7 +35,7 @@ passport.use('login', new LocalStrategy({
     passReqToCallback: true
 }, async (req, email, password, done) => {
     const targetUser = await userController.findByEmail(email)
-    console.log(targetUser)
+    // si no existe el username cancela el logeo
     if (!targetUser) return done(null, false)
     return done(null, targetUser);
 }));
