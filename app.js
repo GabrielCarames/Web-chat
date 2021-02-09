@@ -15,7 +15,6 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var webchatRouter = require('./routes/webchat');
 
-// socket.io settings
 var app = express();
 
 // engine settings
@@ -27,6 +26,15 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 
+// passport settings
+app.use(session({
+  secret: "clave secreta",
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // config app
 app.use(logger('dev'));
 app.use(express.json());
@@ -35,8 +43,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(passport.initialize());
-app.use(passport.session());
 require("./db");
 
 // routes
@@ -48,12 +54,6 @@ app.use('/webchat', webchatRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-app.use(session({
-  secret: "clave super secreta",
-  resave: false,
-  saveUninitialized: true
-}));
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/user');
+const passport = require('passport');
 
+const userController = require('../controllers/userController')
 
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -15,14 +16,24 @@ router.get('/register', function(req, res, next) {
   res.render('user/register');
 });
 
-router.post('/register', async function(req, res, next) {
-  const { username, password, email, country, gender } = req.body
-  const newuser = new User({
-    username, password, email, country, gender
-  })
+router.get('/profile', userController.isAuthenticated, function (req, res, next){
+  res.render('user/profile')
+})
 
-  await newuser.save()
-  res.send({ status : true });
-});
+router.post('/login', passport.authenticate('login', 
+    {
+        successRedirect: '/user/profile',
+        failureRedirect: '/user/login',
+        passReqToCallback: true
+    }
+));
+
+router.post('/register', passport.authenticate('register', 
+    {
+        successRedirect: '/user/profile',
+        failureRedirect: '/user/register',
+        passReqToCallback: true
+    }
+));
 
 module.exports = router;

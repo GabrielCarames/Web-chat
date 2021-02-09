@@ -1,27 +1,27 @@
-<form id="registro" style="padding-left: 600px;padding-top: 50px;width: 1300px;">
+<form action="/user/register" method="POST" style="padding-left: 600px;padding-top: 50px;width: 1300px;">
   <h2 style="text-align: center;">Registro</h2>
   <div class="form-row" style="margin-top: 30px;">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Nombre de usuario</label>
-      <input type="text" class="form-control" id="username">
+      <input type="text" class="form-control" name="username">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Contraseña</label>
-      <input type="password" class="form-control" id="password">
+      <input type="password" class="form-control" name="password">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress">Correo electrónico</label>
-    <input type="email" class="form-control" id="email" placeholder="ejemplo@hotmail.com">
+    <input type="email" class="form-control" name="email" placeholder="ejemplo@hotmail.com">
   </div>
   <div class="form-row">
     <div class="form-group col-md-5">
       <label for="inputCity">Pais</label>
-      <input type="text" class="form-control" id="country">
+      <input type="text" class="form-control" name="country">
     </div>
     <div class="form-group col-md">
       <label for="inputState">Sexo</label>
-      <select id="gender" class="form-control">
+      <select name="gender" class="form-control">
         <option>Hombre</option>
         <option>Mujer</option>
         <option>Otro</option>
@@ -40,32 +40,11 @@
       </label>
     </div>
   </div>
-  <button type="button" class="btn btn-secundary" style="background-color: #666666;color: white;"
-    role="registro" onclick="enviardatos()">Registrarse</button>
+  <button type="submit" class="btn btn-secundary" style="background-color: #666666;color: white;"
+    role="registro">Registrarse</button>
 </form>
 <div style="padding-top: 30px;text-align: center;color: white;">
   <h3>¿Ya tienes una cuenta? <a class="btn btn-secundary" style="background-color: #666666;color: white;"
       href="http://localhost:3000/user/login/" role="Ingresar">Ingresa ahora!</a> </h3>
 </div>
 <hr style="height: 21vh;border-color:white">
-
-<script>
-  function enviardatos(){
-      $.ajax({
-        url: 'http://localhost:3000/user/register',
-        type: 'POST',
-        data:
-        {
-          username: $("#username").val(),
-          password: $("#password").val(),
-          email: $("#email").val(),
-          country: $("#country").val(),
-          gender: $("#gender").val()
-        },
-        success: function (result) {
-          alert("Registro correcto");
-          location.href = "http://localhost:3000/";
-        }
-      });
-    }
-</script>
