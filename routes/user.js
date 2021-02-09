@@ -30,7 +30,7 @@ router.post('/login', passport.authenticate('login',
 
 router.post('/register', passport.authenticate('register', 
     {
-        successRedirect: '/user/profile',
+        successRedirect: '/user/login',
         failureRedirect: '/user/register',
         passReqToCallback: true
     }

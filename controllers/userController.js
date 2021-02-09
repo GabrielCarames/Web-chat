@@ -18,6 +18,10 @@ exports.findByEmail = async (email) => {
     return User.findOne({'email': email})
 }
 
+exports.findByPassword = async (password) => {
+    return User.findOne({'password': password})
+}
+
 exports.createUser = async (values) => {
     const {username, password, email, country, gender} = values
     const newUser = new User({username, password, email, country, gender})

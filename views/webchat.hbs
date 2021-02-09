@@ -1,10 +1,11 @@
 <link rel='stylesheet' href='/css/webchat.css' />
 <script src="/socket.io/socket.io.js"></script>
-<script src="webchat.js" charset="utf-8"></script>
+<script src="webchat.js"></script>
 <div id="container" class="container">
     <div id="contact" class="row">
         <div class="col" style="background-color: red;">
-            ERICK
+            púto de mierdas???
+            <h4 id="username">{{username}}</h4>
         </div>
     </div>
     <form id="form" class="container">
@@ -55,23 +56,36 @@
 </div>
 <script>
     var socket = io();
+    var username = $("#username").text()
+    console.log(username)
     var form = document.getElementById('form');
     var input = document.getElementById('message');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-            socket.emit('chat:message', input.value);
+            socket.emit('chat:message', {
+                message: input.value, 
+                username: username
+            });
             input.value = '';
         }
     });
 
-    socket.on('chat:message', function(msg) {
+    socket.on('chat:message', function(data) {
         var item = document.createElement('li');
-        item.textContent = msg;
+        item.textContent = data.username + " dice: " + data.message;
+        console.log(item.textContent)
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
-  });
+    });
+
+    socket.on('userdisconnect', function(username) {
+        var item = document.createElement('li');
+        item.textContent = "El usuario " + username + " se ha desconectado"
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
     /* esto no se de donde salio ni se si es mejor o peor se queda aca hasta nuevo aviso
     socket.on('message', addMessages)
         $(() => {

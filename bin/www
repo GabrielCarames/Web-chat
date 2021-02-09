@@ -33,12 +33,19 @@ server.on('listening', onListening);
 // socket.io configs
 
 io.on('connection', (socket) => {
-  console.log('se conectó un usuarioasdasdas');
-  socket.on('chat:message', (msg) => {
-    io.emit('chat:message', msg);
-    console.log('message: ' + msg);
+  socket.on('connect', (req) => {
+    console.log("SOS REP LELTODUO AM")
+    console.log(req)
   });
-  socket.on('disconnect', () => {
+  console.log('se conectó un usuarioasdasdas');
+  socket.on('chat:message', (data) => {
+    io.emit('chat:message', data);
+    console.log(data)
+  });
+  
+  socket.on('disconnect', (actualUser) => {
+    console.log(actualUser)
+    io.emit('userdisconnect', actualUser);
     console.log('un usuario se fué a la meirda');
   });
 });

@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/message');
+const userController = require('../controllers/userController')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-router.get('/', function(_req, res, _next) {
-  res.render('webchat');
+router.get('/', userController.isAuthenticated, function(req, res, next) {
+  const cuenta = req.user
+  console.log(cuenta.username)
+  res.render('webchat', cuenta)
 });
 
 router.get('/messages', (req, res) => {
