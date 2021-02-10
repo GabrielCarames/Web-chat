@@ -41,8 +41,8 @@ router.get('/userlogged', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  req.user = ''
-  res.render('index')
+  req.logout()
+  res.redirect('/')
 });
 
 module.exports = router;
