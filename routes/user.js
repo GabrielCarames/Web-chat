@@ -36,4 +36,8 @@ router.post('/register', passport.authenticate('register',
     }
 ));
 
+router.get('/userlogged', function(req, res, next) {
+  res.send(req.user);
+});
+
 module.exports = router;

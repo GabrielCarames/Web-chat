@@ -80,12 +80,28 @@
         window.scrollTo(0, document.body.scrollHeight);
     });
 
-    socket.on('userdisconnect', function(username) {
+    /*
+    $.get("http://localhost:3000/user/userlogged", function (data) {
+        var usernamedos = data.username 
+        console.log("SOS UN RE HIJO DE REM IL PUT")
+        console.log(username)
+        console.log(usernamedos)
+    });
+
+    socket.on('userconnection', function(username) {
+        var item = document.createElement('li');
+        item.textContent = "El usuario " + username + " se ha conectado"
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    socket.on('userdisconnection', function(username) {
         var item = document.createElement('li');
         item.textContent = "El usuario " + username + " se ha desconectado"
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
-    });
+    });*/
+    
     /* esto no se de donde salio ni se si es mejor o peor se queda aca hasta nuevo aviso
     socket.on('message', addMessages)
         $(() => {
