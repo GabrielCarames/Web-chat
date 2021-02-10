@@ -13,6 +13,9 @@
             <div id="messages">
                 
             </div>
+            <div id="actions">
+
+            </div>
         </div>
         <div class="row" style="background-color: yellow;">
             <input id="message" class="form-control" placeholder="Your Message Here"></input>
@@ -59,26 +62,41 @@
     var username = $("#username").text()
     console.log(username)
     var form = document.getElementById('form');
-    var input = document.getElementById('message');
+    var message = document.getElementById('message');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        if (input.value) {
+        if (message.value) {
             socket.emit('chat:message', {
-                message: input.value, 
+                message: message.value, 
                 username: username
             });
-            input.value = '';
+            message.value = '';
         }
     });
 
+    message.addEventListener('keypress', function(){
+        socket.emit('typing', username)
+    });
+
+    socket.on('typing', function(data) {
+        actions.innerHTML = '<p><em>' + data + ' esta escribiendo</em></p>'
+    });
+
     socket.on('chat:message', function(data) {
+        actions.innerHTML = "";
         var item = document.createElement('li');
         item.textContent = data.username + " dice: " + data.message;
         console.log(item.textContent)
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });
+
+    socket.on('chat:typing', function(data){
+        var item = document.createElement('li');
+        item.textContent = data
+        actions.appendChild(item);
+    })
 
     /*
     $.get("http://localhost:3000/user/userlogged", function (data) {
@@ -101,7 +119,7 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });*/
-    
+
     /* esto no se de donde salio ni se si es mejor o peor se queda aca hasta nuevo aviso
     socket.on('message', addMessages)
         $(() => {
