@@ -49,8 +49,8 @@ io.on('connection', (socket) => {
 
   // Recibe y envia al cliente el mensaje del usuario
   socket.on('message', async (data) => {
-    const message = data
-    const newMessage = new Message(message)
+    const {message, username} = data
+    const newMessage = new Message({message, username})
     await newMessage.save();
     io.emit('message', data);
   });

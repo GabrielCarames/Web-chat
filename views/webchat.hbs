@@ -86,7 +86,7 @@
 
     socket.on('chathistory', function(data){
         $.each(data, function(){
-            messages.innerHTML += '<p>' + this.message + '</p>'
+            messages.innerHTML += '<p>' + this.username + ' dice: ' + this.message + '</p>'
         })
     })
 
