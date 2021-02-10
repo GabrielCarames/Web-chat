@@ -2,9 +2,13 @@
     margin-top: 50px;
     max-width: 1600px;
     height: 1000px;
+    color:white;
 }
-#contact{
+#user{
     height: 80px;
+}
+#userdata{
+    background-color: rgb(49, 49, 49);
 }
 #form{
     background-color: #3c3f62;
@@ -19,13 +23,19 @@
     color: white;
     height: 500px;
 }
+#messages{
+    height: 400px;
+}
 #message{
     width: 96.1%; 
     height: 50px;
 }
 #friendsOne, #friendsTwo{
     height: 100px;
+    background-color: #3c3f62;
+    border-color: red;
 }
 #options{
+    background-color: rgb(49, 49, 49);
     height: 50px;
 }

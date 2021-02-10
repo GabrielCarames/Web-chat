@@ -2,10 +2,14 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="webchat.js"></script>
 <div id="container" class="container">
-    <div id="contact" class="row">
-        <div class="col" style="background-color: red;">
-            púto de mierdas???
-            <h4 id="username">{{username}}</h4>
+    <div id="user" class="row">
+        <div id="userdata" class="col">
+            <div class="row">
+                <h4 id="username" style="color: white;">{{username}}</h4>
+            </div>
+            <div class="row" id="actions">
+
+            </div>
         </div>
     </div>
     <form id="form" class="container">
@@ -13,45 +17,42 @@
             <div id="messages">
                 
             </div>
-            <div id="actions">
-
-            </div>
         </div>
-        <div class="row" style="background-color: yellow;">
+        <div class="row">
             <input id="message" class="form-control" placeholder="Your Message Here"></input>
             <button id="send" class="btn btn-success">Send</button>
         </div>
     </form>
     <div id="friendsOne" class="row">
-        <div class="col" style="background-color: red;">
+        <div class="col">
             don pepe  pizzeria
         </div>
-        <div class="col" style="background-color: blue;">
+        <div class="col">
             tachancka
         </div>
     </div>
     <div id="friendsTwo" class="row">
-        <div class="col" style="background-color: rgb(255, 0, 255);">
+        <div class="col">
             jose mantas
         </div>
-        <div class="col" style="background-color: rgb(0, 132, 255);">
+        <div class="col">
             parches
         </div>
     </div>
     <div id="options" class="row">
-        <div class="col-8" style="background-color: rgb(246, 139, 139);">
+        <div class="col-8">
             joshmicuca
         </div>
-        <div class="col-1" style="background-color: blue;">
+        <div class="col-1">
             opcion 1 
         </div>
-        <div class="col-1" style="background-color: rgb(0, 255, 191);">
+        <div class="col-1" >
             opcion 2 
         </div>
-        <div class="col-1" style="background-color: rgb(119, 0, 255);">
+        <div class="col-1">
             opcion 3 
         </div>
-        <div class="col-1" style="background-color: rgb(255, 0, 119);">
+        <div class="col-1">
             configuracion
         </div>
 
@@ -60,14 +61,13 @@
 <script>
     var socket = io();
     var username = $("#username").text()
-    console.log(username)
     var form = document.getElementById('form');
     var message = document.getElementById('message');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (message.value) {
-            socket.emit('chat:message', {
+            socket.emit('message', {
                 message: message.value, 
                 username: username
             });
@@ -80,23 +80,13 @@
     });
 
     socket.on('typing', function(data) {
-        actions.innerHTML = '<p><em>' + data + ' esta escribiendo</em></p>'
+        actions.innerHTML = '<p><em style="color: white">' + data + ' esta escribiendo</em></p>'
     });
 
-    socket.on('chat:message', function(data) {
+    socket.on('message', function(data) {
         actions.innerHTML = "";
-        var item = document.createElement('li');
-        item.textContent = data.username + " dice: " + data.message;
-        console.log(item.textContent)
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '</p>';
     });
-
-    socket.on('chat:typing', function(data){
-        var item = document.createElement('li');
-        item.textContent = data
-        actions.appendChild(item);
-    })
 
     /*
     $.get("http://localhost:3000/user/userlogged", function (data) {
