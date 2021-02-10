@@ -21,7 +21,7 @@ passport.use('register', new LocalStrategy({
 }, async (req, username, password, done) => {
     const targetUser = await userController.findByUsername(username)
     // si ya existe la cuenta cancela el registro, sino existe crea el usuario
-    if (targetUser) return done(null, false);
+    if (targetUser) return done(null, false, req.flash('messageFailure', 'Ya existe una cuenta con estos datos.'));
     else {
         const newUser = await userController.createUser(req.body)
         done(null, newUser);

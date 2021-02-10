@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session'); 
+const flash = require('connect-flash');
 
 require('./passport/authenticator');
 
@@ -34,6 +35,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 // config app
 app.use(logger('dev'));
@@ -60,10 +62,12 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  res.locals.messageFailure = req.flash('messageFailure');
+  
   // render the error page
   res.status(err.status || 500);
   res.render('partials/error', {layout: false});
+  
 });
 
 
