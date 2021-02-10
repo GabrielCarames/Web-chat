@@ -17,7 +17,9 @@ router.get('/register', function(req, res, next) {
 });
 
 router.get('/profile', userController.isAuthenticated, function (req, res, next){
-  res.render('user/profile')
+  const cuenta = req.user
+  console.log(cuenta)
+  res.render('user/profile', cuenta)
 })
 
 router.post('/login', passport.authenticate('login', 
