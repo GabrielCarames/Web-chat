@@ -22,7 +22,7 @@ router.get('/profile', userController.isAuthenticated, function (req, res, next)
 
 router.post('/login', passport.authenticate('login', 
     {
-        successRedirect: '/user/profile',
+        successRedirect: '/',
         failureRedirect: '/user/login',
         passReqToCallback: true
     }
@@ -38,6 +38,11 @@ router.post('/register', passport.authenticate('register',
 
 router.get('/userlogged', function(req, res, next) {
   res.send(req.user);
+});
+
+router.get('/logout', function(req, res, next) {
+  req.user = ''
+  res.render('index')
 });
 
 module.exports = router;

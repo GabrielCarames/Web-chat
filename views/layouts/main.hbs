@@ -34,9 +34,14 @@
     <div class="uk-navbar-right">
       <div>
         <ul class="uk-navbar-nav">
-          <li><a href="/user/login"><button class="uk-button uk-button-default text-white">Ingresar</button></a></li>
-          <li><a href="/user/register"><button class="uk-button uk-button-default text-white">Registrar</button></a>
-          </li>
+          {{#if username}}
+            {{user.username}}
+            <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">Perfil</button></a></li>
+            <li><a href="/user/logout"><button class="uk-button uk-button-default text-white">Cerrar sesión</button></a></li>
+          {{else}}
+            <li><a href="/user/login"><button class="uk-button uk-button-default text-white">Ingresar</button></a></li>
+            <li><a href="/user/register"><button class="uk-button uk-button-default text-white">Registrar</button></a></li>
+          {{/if}}
         </ul>
       </div>
     </div>
@@ -44,6 +49,7 @@
   </nav>
 
   <section>
+    {{user.username}}
     {{{body}}}
   </section>
 
