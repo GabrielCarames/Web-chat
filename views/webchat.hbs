@@ -84,6 +84,12 @@
         messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
     })
 
+    socket.on('chathistory', function(data){
+        $.each(data, function(){
+            messages.innerHTML += '<p>' + this.message + '</p>'
+        })
+    })
+
     // Recibe y muestra la desconexion de un usuario
     socket.on('userdisconnect', function(username){
         messages.innerHTML += '<p>' + username + ' se ha desconectado</p>'

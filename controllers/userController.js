@@ -28,3 +28,10 @@ exports.createUser = async (values) => {
     await newUser.save()
     return newUser
 }
+
+exports.createMessage = async (values) => {
+    const message = values
+    const newMessage = new User(message)
+    await newMessage.save()
+    return newMessage
+}
