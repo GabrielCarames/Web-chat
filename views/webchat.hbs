@@ -64,6 +64,10 @@
     var form = document.getElementById('form');
     var message = document.getElementById('message');
 
+    // Envia al server que el usuario se conecto
+    socket.emit('connected', username)
+
+    // Cuando un usuario envia un mensaje, se emite esta accion con el nombre y el mensaje del usuario al servidor
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (message.value) {
@@ -75,65 +79,29 @@
         }
     });
 
+    // Recibe y muestra la conexion de un usuario
+    socket.on('userconnect', function(username){
+        messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
+    })
+
+    // Recibe y muestra la desconexion de un usuario
+    socket.on('userdisconnect', function(username){
+        messages.innerHTML += '<p>' + username + ' se ha desconectado</p>'
+    })
+
+    // Si el usuario esta escribiendo se le informa al servidor
     message.addEventListener('keypress', function(){
         socket.emit('typing', username)
     });
 
+    // Recibe y muestra cuando el usuario esta escribiendo
     socket.on('typing', function(data) {
         actions.innerHTML = '<p><em style="color: white">' + data + ' esta escribiendo</em></p>'
     });
 
+    // Recibe y muestra el mensaje del usuario
     socket.on('message', function(data) {
         actions.innerHTML = "";
         messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '</p>';
     });
-
-    /*
-    $.get("http://localhost:3000/user/userlogged", function (data) {
-        var usernamedos = data.username 
-        console.log("SOS UN RE HIJO DE REM IL PUT")
-        console.log(username)
-        console.log(usernamedos)
-    });
-
-    socket.on('userconnection', function(username) {
-        var item = document.createElement('li');
-        item.textContent = "El usuario " + username + " se ha conectado"
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-    });
-
-    socket.on('userdisconnection', function(username) {
-        var item = document.createElement('li');
-        item.textContent = "El usuario " + username + " se ha desconectado"
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-    });*/
-
-    /* esto no se de donde salio ni se si es mejor o peor se queda aca hasta nuevo aviso
-    socket.on('message', addMessages)
-        $(() => {
-            $("#send").click(() => {
-                sendMessage({
-                    message: $("#message").val()
-                });
-            })
-            getMessages()
-        })
-
-        function addMessages(message) {
-            $('#messages').append(`
-        <h4> ${message.name} </h4>
-        <p>  ${message.message} </p>`)
-        }
-
-        function getMessages() {
-            $.get('http://localhost:3000/webchat/messages', (data) => {
-                data.forEach(addMessages);
-            })
-        }
-
-        function sendMessage(message) {
-            $.post('http://localhost:3000/webchat/messages', message)
-        }*/
 </script>

@@ -33,13 +33,24 @@ server.on('listening', onListening);
 // socket.io configs
 
 io.on('connection', (socket) => {
-  //io.emit('userconnection');
+  
+  // SI EL USuario se conecto, se guarda su nombre y se lo envia al cliente
+  socket.on('connected',(username) => {
+    socket.username = username
+    socket.broadcast.emit('userconnect', username)
+  })
+  // Recibe y envia al cliente el mensaje del usuario
   socket.on('message', (data) => {
     io.emit('message', data);
   });
+  // Recibe y envia que un usuario esta escribiendo
   socket.on('typing', (data) => {
     socket.broadcast.emit('typing', data)
   });
+  // Recibe y envia que un usuario se desconecto
+  socket.on('disconnect',() => {
+    io.emit('userdisconnect', socket.username)
+  })
 });
 
 /**
