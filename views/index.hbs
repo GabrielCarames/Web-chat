@@ -7,8 +7,14 @@
             cualquier persona gracias a nuestro sistema multi-chat con el que seraz capaz de hablar con hasta cuatro
             personas en silmuntáneo.</br>Disfruta de nuestro servicio de forma totalmente gratuita ahora mismo, o
             descarga nuestra aplicación para escritorio.</p>
-        <a href="http://localhost:3000/webchat/" class="btn btn btn-lg active" role="button" aria-pressed="true"
+        {{#unless username}}
+            <a href="http://localhost:3000/webchat/" class="btn btn btn-lg active" role="button" aria-pressed="true"
+            style="background-color: rgb(49, 49, 49);color:white" onclick="loginAlert()">PollitoMuertoWeb</a>
+        {{/unless}}
+        {{#if username}}
+            <a href="http://localhost:3000/webchat/" class="btn btn btn-lg active" role="button" aria-pressed="true"
             style="background-color: rgb(49, 49, 49);color:white">PollitoMuertoWeb</a>
+        {{/if}}
         <a href="#" class="btn btn btn-lg active" role="button" aria-pressed="true"
             style="background-color: rgb(49, 49, 49);color:white">Descargar aplicación</a>
     </div>
@@ -92,11 +98,11 @@
                     style="background-color: rgb(49, 49, 49);color:white">Descargar aplicación</a>
             </div>
             </div>
-            
         </div>
     </div>
-
-
-
-
 </div>
+<script>
+    function loginAlert(){
+        alert("Para usar PollitoMuertoWeb debes iniciar sesión");
+    }
+</script>

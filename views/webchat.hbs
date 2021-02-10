@@ -84,6 +84,7 @@
         messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
     })
 
+    // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function(data){
         $.each(data, function(){
             messages.innerHTML += '<p>' + this.username + ' dice: ' + this.message + '</p>'
