@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const Notification = new Schema({
-    notifications: {
-        notificationType: {
-            type: String
-        },
-        from: {
-            type: Number
-        }
+    notificationType: {
+        type: String
+    },
+    from: {
+        type: mongoose.Schema.Types.ObjectId
     }
 })
 

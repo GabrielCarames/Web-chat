@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
+const Notification = require('../models/notification')
 const userController = require('../controllers/userController')
 
 router.get('/', function(req, res, next) {
@@ -39,15 +40,22 @@ router.post('/register', passport.authenticate('register',
 ));
 
 router.post('/addfriend', async function(req, res, next) {
-  console.log("HOALAMAMA")
-  const holasosmiamigo = "sosrepelotudo"
-  const friendusername = req.body.addfriend
-  console.log(friendusername)
-  const friend = await userController.findByUsername(friendusername)
-  userController.InsertOne({friend, holasosmiamigo})
-  //const newMessage = new User(friend)
-    //await newMessage.save();
-  res.send(req.user);
+  
+  const type = 'friendRequest'       // tipo de notificacion
+  const executorId = req.user._id    // ejecutor de la notificacion
+
+  const friendUsername = req.body.addfriend // username del destinatario
+  const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
+  const friendId = friend.id
+
+  // crea la nueva notificacion con su tipo y id del ejecutor
+  const newNotification = new Notification({
+    notificationType: type,
+    from: executorId
+  })
+  // agrega la nueva notificacion al destinatario
+  userController.addNotification(friendId, newNotification)
+  res.redirect('/');
 });
 
 router.get('/userlogged', function(req, res, next) {

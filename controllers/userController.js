@@ -7,6 +7,17 @@ exports.isAuthenticated = (req, res, next) => {
     res.redirect('/');
 }
 
+exports.addNotification = (userId, newNotification) => {
+    // encuentra y actualiza agregandole la nueva notificacion al campo notifications
+    return User.findByIdAndUpdate(userId,
+        {
+            $push: {
+                notifications: newNotification
+            }
+        }
+    )
+}
+
 exports.findById = async (id) => {
     return User.findById(id)
 }
