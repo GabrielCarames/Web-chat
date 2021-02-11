@@ -7,13 +7,12 @@ exports.isAuthenticated = (req, res, next) => {
     res.redirect('/');
 }
 
-exports.addNotification = (userId, newNotification) => {
+exports.addNotification = (friendId, newNotification) => {
     // encuentra y actualiza agregandole la nueva notificacion al campo notifications
-    return User.findByIdAndUpdate(userId,
+    //const query = { _id: friendId}
+    return User.findOneAndUpdate({_id: friendId},
         {
-            $push: {
-                notifications: newNotification
-            }
+            country: 'tachancka'
         }
     )
 }
