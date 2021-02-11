@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-
 const userController = require('../controllers/userController')
 
 router.get('/', function(req, res, next) {
@@ -34,9 +33,18 @@ router.post('/register', passport.authenticate('register',
     {
         successRedirect: '/user/login',
         failureRedirect: '/user/register',
+        failureFlash: true,
         passReqToCallback: true
     }
 ));
+
+router.get('/addfriend', async function(req, res, next) {
+  var friendusername = req.body
+  const friend = await userController.findByUsername(friendusername)
+    //const newMessage = new User(friend)
+    //await newMessage.save();
+  res.send(req.user);
+});
 
 router.get('/userlogged', function(req, res, next) {
   res.send(req.user);
