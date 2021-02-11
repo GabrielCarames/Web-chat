@@ -38,10 +38,14 @@ router.post('/register', passport.authenticate('register',
     }
 ));
 
-router.get('/addfriend', async function(req, res, next) {
-  var friendusername = req.body
+router.post('/addfriend', async function(req, res, next) {
+  console.log("HOALAMAMA")
+  const holasosmiamigo = "sosrepelotudo"
+  const friendusername = req.body.addfriend
+  console.log(friendusername)
   const friend = await userController.findByUsername(friendusername)
-    //const newMessage = new User(friend)
+  userController.InsertOne({friend, holasosmiamigo})
+  //const newMessage = new User(friend)
     //await newMessage.save();
   res.send(req.user);
 });

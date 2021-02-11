@@ -17,7 +17,6 @@ passport.use('register', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
-
 }, async (req, username, password, done) => {
     const targetUser = await userController.findByUsername(username)
     // si ya existe la cuenta cancela el registro, sino existe crea el usuario

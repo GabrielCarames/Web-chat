@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Notification = require('../models/notification');
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated())
@@ -21,6 +22,11 @@ exports.findByEmail = async (email) => {
 exports.findByPassword = async (password) => {
     return User.findOne({'password': password})
 }
+
+exports.InsertOne = async (friend, data) => {
+    console.log(friend)
+    return User.collection("notification").insertOne({"_id": friend.id}, {$set: data}
+)}
 
 exports.createUser = async (values) => {
     const {username, password, email, country, gender} = values
