@@ -1,5 +1,8 @@
 <link rel='stylesheet' href='/css/webchat.css' />
 <script src="/socket.io/socket.io.js"></script>
+<div id="notifications">
+
+</div>
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
@@ -43,7 +46,9 @@
             joshmicuca
         </div>
         <div class="col-1" onclick="addfriend()">
-            Agregar amigos
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="height: 80%">
+                <small> Agregar amigos</small> 
+            </button>
         </div>
         <div class="col-1" >
             opcion 2 
@@ -56,9 +61,6 @@
         </div>
 
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Agregar amigos
-    </button>
     <form action="/user/addfriend" method="POST" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,9 +137,9 @@
     });
 
     function prueba(){
-        container.innerHTML += 
+        notifications.innerHTML += 
         '<div class="alert alert-warning alert-dismissible fade show" role="alert">'+
-            '<strong>Holy guacamole!</strong> You should check in on some of those fields below.'+
+            '<strong>La solicitud de amistad se ha enviado correctamente.</strong>'+
             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
             '</button>'+
