@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const notification = require('./notification');
+const notificationSchema = mongoose.model('Notification').schema
 const {Schema, model} = mongoose;
 
 const User = new Schema({
@@ -29,7 +29,7 @@ const User = new Schema({
         required: true
     },
     notifications: {
-        type: [notification],
+        type: [notificationSchema],
         required: false
     }
 })
