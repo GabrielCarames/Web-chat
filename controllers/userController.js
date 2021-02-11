@@ -12,7 +12,12 @@ exports.addNotification = (friendId, newNotification) => {
     //const query = { _id: friendId}
     return User.findOneAndUpdate({_id: friendId},
         {
-            country: 'tachancka'
+            notifications: newNotification
+        },(err) => {
+            if(err){
+                console.log(err)
+            }
+            console.log("ganaste")
         }
     )
 }

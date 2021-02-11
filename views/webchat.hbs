@@ -1,6 +1,5 @@
 <link rel='stylesheet' href='/css/webchat.css' />
 <script src="/socket.io/socket.io.js"></script>
-<script src="webchat.js"></script>
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
@@ -135,8 +134,17 @@
         messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '</p>';
     });
 
-/*
-    function addfriend(){
-        location.href = "http://localhost:3000/user/addfriend" + $("#name").val()
-    }*/
+    function prueba(){
+        container.innerHTML += 
+        '<div class="alert alert-warning alert-dismissible fade show" role="alert">'+
+            '<strong>Holy guacamole!</strong> You should check in on some of those fields below.'+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+        '</div>'
+    }
+
+    $('#exampleModal').on('hide.bs.modal', function () {
+        prueba()
+    })
 </script>
