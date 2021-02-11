@@ -23,10 +23,16 @@ exports.findByPassword = async (password) => {
     return User.findOne({'password': password})
 }
 
-exports.InsertOne = async (friend, data) => {
-    console.log(friend)
-    return User.collection("notification").insertOne({"_id": friend.id}, {$set: data}
-)}
+exports.InsertOne = (friend, holasosmiamigo) => {
+    console.log(friend.holasosmiamigo)
+    //User.notifications.push(friend.holasosmiamigo);
+    const nuevaNotificacion = new Notification({
+        notificationType: friend.holasosmiamigo, from: friend.id
+    })
+    nuevaNotificacion.save();
+    //return User.collection("notifications").insertOne({"_id": friend.id}, {$set: data}
+//)
+}
 
 exports.createUser = async (values) => {
     const {username, password, email, country, gender} = values
