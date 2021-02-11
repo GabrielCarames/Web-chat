@@ -26,6 +26,10 @@ const User = new Schema({
     gender: {
         type: String,
         required: true
+    },
+    notification: {
+        type: String,
+        required: true
     }
 })
 
