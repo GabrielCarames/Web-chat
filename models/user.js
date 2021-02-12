@@ -33,6 +33,10 @@ const User = new Schema({
     notifications: {
         type: [notificationSchema],
         required: false
+    },
+    createdAt: {
+         type: Date, 
+         default: Date.now
     }
 })
 

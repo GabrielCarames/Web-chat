@@ -9,7 +9,6 @@ exports.isAuthenticated = (req, res, next) => {
 
 exports.addNotification = (friendId, newNotification) => {
     // encuentra y actualiza agregandole la nueva notificacion al campo notifications
-    //const query = { _id: friendId}
     return User.findOneAndUpdate({_id: friendId},
         {
             notifications: newNotification
@@ -36,17 +35,6 @@ exports.findByEmail = async (email) => {
 
 exports.findByPassword = async (password) => {
     return User.findOne({'password': password})
-}
-
-exports.InsertOne = (friend, holasosmiamigo) => {
-    console.log(friend.holasosmiamigo)
-    //User.notifications.push(friend.holasosmiamigo);
-    const nuevaNotificacion = new Notification({
-        notificationType: friend.holasosmiamigo, from: friend.id
-    })
-    nuevaNotificacion.save();
-    //return User.collection("notifications").insertOne({"_id": friend.id}, {$set: data}
-//)
 }
 
 exports.createUser = async (values) => {

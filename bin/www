@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('discord:server');
 var http = require('http');
 const Message = require('../models/message');
+const { converter } = require('../config/functions');
 
 /**
  * Get port from environment and store in Express.
@@ -53,7 +54,9 @@ io.on('connection', (socket) => {
     const {message, username} = data
     const newMessage = new Message({message, username})
     await newMessage.save();
-    io.emit('message', data);
+    var createdAtMessage = await Message.findOne({message: data.message})
+    var createdAtDate = converter(createdAtMessage)
+    io.emit('message', data, createdAtDate);
   });
 
   // Recibe y envia que un usuario esta escribiendo
