@@ -6,9 +6,13 @@ const Message = new Schema({
         type: String,
         required: true
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
+    user: {
+        type: mongoose.model('Userxd').schema,
         required: true
+    },
+    username: {
+        type: String,
+        required: false
     },
     createdAt: {
         type: Date, 

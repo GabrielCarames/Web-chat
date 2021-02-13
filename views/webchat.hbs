@@ -1,5 +1,7 @@
 <link rel='stylesheet' href='/css/webchat.css' />
 <script src="/socket.io/socket.io.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+<script src="//momentjs.com/downloads/moment-with-locales.js"></script>
 <div id="notifications">
 
 </div>
@@ -82,11 +84,20 @@
         </div>
     </form>
 </div>
+
 <script>
     var socket = io();
     var username = $("#username").text()
     var form = document.getElementById('form');
     var message = document.getElementById('message');
+
+    // convierte fecha linda
+    function convertUntilNow(datetime){
+        moment.locale('es')
+        var time = moment(datetime);
+        var untilNow = time.fromNow(true);
+        return untilNow;
+    }
 
     // Envia al server que el usuario se conecto
     socket.emit('connected', username)
@@ -111,7 +122,7 @@
     // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function(data){
         $.each(data, function(){
-            messages.innerHTML += '<p>' + this.username + ' dice: ' + this.message + '</p>'
+            messages.innerHTML += '<p>' + this.user.username + 'hace:' + convertUntilNow(this.createdAt) + 'dice:' + this.message +'</p>'
         })
     })
 
@@ -134,7 +145,7 @@
     socket.on('message', function(data, createdAtDate) {
         console.log(data)
         actions.innerHTML = "";
-        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + data.createdAt + '</small>' + '</p>';
+        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(data.createdAt) + '</small>' + '</p>';
     });
 
     function prueba(){

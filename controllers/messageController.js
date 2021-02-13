@@ -3,7 +3,7 @@ const userController = require('../controllers/userController');
 
 
 exports.getAllMessages = async () => {
-    return Message.find();
+    return Message.find({});
 }
 
 exports.createAndSaveMessage = async (data) => {
@@ -11,9 +11,8 @@ exports.createAndSaveMessage = async (data) => {
 
     // encuentra al usuario por su username
     const user = await userController.findByUsername(username);
-    const userId = user._id
 
-    const newMessage = new Message({message, userId})
+    const newMessage = new Message({message, user})
     await newMessage.save();
     return newMessage
 }
