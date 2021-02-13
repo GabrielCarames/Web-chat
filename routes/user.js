@@ -48,11 +48,20 @@ router.post('/addfriend', async function(req, res, next) {
   const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
   const friendId = friend.id
 
+  // si ya ha enviado una notificacion de amistad al mismo destinatario
+  const repeated = await userController.existNotification(friendId, executorId, type)
+
+  if(repeated){
+    req.flash('messageFailure', 'Ya has enviado una notificacion a ese usuario')
+    res.redirect(req.get('referer'));
+  }
+
   // crea la nueva notificacion con su tipo y id del ejecutor
   const newNotification = new Notification({
     notificationType: type,
     from: executorId
   })
+  
   // agrega la nueva notificacion al destinatario
   userController.addNotification(friendId, newNotification)
   res.redirect('/');

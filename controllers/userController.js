@@ -7,12 +7,21 @@ exports.isAuthenticated = (req, res, next) => {
     res.redirect('/');
 }
 
+exports.existNotification = async (friendId, executorId, notificationType) => {
+    return await User.findOne({ _id: friendId},
+        {
+            'notifications.from': executorId,
+            'notifications.notificationType': notificationType
+        }
+    );
+}
+
 exports.addNotification = (friendId, newNotification) => {
     // encuentra y actualiza agregandole la nueva notificacion al campo notifications
     return User.findOneAndUpdate({_id: friendId},
-        {
+        {$push:{
             notifications: newNotification
-        },(err) => {
+        }},(err) => {
             if(err){
                 console.log(err)
             }
