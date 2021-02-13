@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const Notification = require('../models/notification');
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated())
@@ -44,6 +43,11 @@ exports.findByEmail = async (email) => {
 
 exports.findByPassword = async (password) => {
     return User.findOne({'password': password})
+}
+
+exports.getUsername = async (id) => {
+    const user = this.findById(id);
+    return user.username
 }
 
 exports.createUser = async (values) => {

@@ -6,8 +6,8 @@ const Message = new Schema({
         type: String,
         required: true
     },
-    username: {
-        type: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     createdAt: {

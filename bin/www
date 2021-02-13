@@ -24,6 +24,10 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+// pasa la variable io al archivo socket.js
+require('../socket.js')(io) 
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -32,45 +36,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// socket.io configs
-
-io.on('connection', (socket) => {
-  
-  // SI EL USuario se conecto, se guarda su nombre y se lo envia al cliente
-  socket.on('connected',(username) => {
-    socket.username = username
-    socket.broadcast.emit('userconnect', username)
-  })
-
-  // Cuando el usuario se conecta se findea los mensajes del campo Message y se lo manda al cliente
-
-  Message.find().then(function (data){
-    socket.emit("chathistory", data)
-  })
-
-  // Recibe y envia al cliente el mensaje del usuario
-
-  socket.on('message', async (data) => {
-    const {message, username} = data
-    const newMessage = new Message({message, username})
-    await newMessage.save();
-    var createdAtMessage = await Message.findOne({message: data.message})
-    var createdAtDate = converter(createdAtMessage)
-    io.emit('message', data, createdAtDate);
-  });
-
-  // Recibe y envia que un usuario esta escribiendo
-
-  socket.on('typing', (data) => {
-    socket.broadcast.emit('typing', data)
-  });
-
-  // Recibe y envia que un usuario se desconecto
-  
-  socket.on('disconnect',() => {
-    io.emit('userdisconnect', socket.username)
-  })
-});
 
 /**
  * Normalize a port into a number, string, or false.

@@ -132,8 +132,9 @@
 
     // Recibe y muestra el mensaje del usuario
     socket.on('message', function(data, createdAtDate) {
+        console.log(data)
         actions.innerHTML = "";
-        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + createdAtDate + '</small>' + '</p>';
+        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + data.createdAt + '</small>' + '</p>';
     });
 
     function prueba(){
