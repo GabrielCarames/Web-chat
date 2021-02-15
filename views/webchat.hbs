@@ -151,7 +151,6 @@
     // Recibe y muestra cuando el usuario esta escribiendo
     socket.on('typing', function(data) {
         actions.innerHTML = '<p><em style="color: white">' + data + ' esta escribiendo</em></p>'
-            //'<p>' + '&nbsp' + '<img src="{{avatar}}" class="avatarImg" alt="wow">' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(data.createdAt) + '</small>' + '</p>';
     });
 
     // Recibe y muestra el mensaje del usuario
