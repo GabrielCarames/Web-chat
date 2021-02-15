@@ -115,7 +115,7 @@
     });
 
     // Recibe y muestra la conexion de un usuario
-    socket.on('userconnect', function(username){
+    socket.once('userconnect', function(username){
         messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
     })
 
@@ -148,17 +148,5 @@
         messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(data.createdAt) + '</small>' + '</p>';
     });
 
-    function prueba(){
-        notifications.innerHTML += 
-        '<div class="alert alert-warning alert-dismissible fade show" role="alert">'+
-            '<strong>La solicitud de amistad se ha enviado correctamente.</strong>'+
-            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                '<span aria-hidden="true">&times;</span>'+
-            '</button>'+
-        '</div>'
-    }
 
-    $('#exampleModal').on('hide.bs.modal', function () {
-        prueba()
-    })
 </script>

@@ -12,7 +12,7 @@ exports.existNotification = async (friendId, executorId, notificationType) => {
             'notifications.from': executorId,
             'notifications.notificationType': notificationType
         }
-    );
+    )
 }
 
 exports.addNotification = (friendId, newNotification) => {
