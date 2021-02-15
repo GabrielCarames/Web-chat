@@ -6,6 +6,18 @@ exports.isAuthenticated = (req, res, next) => {
     res.redirect('/');
 }
 
+exports.getNotifications = async (userId) => {
+    const query = await this.findById(userId)
+    const notifications = query.notifications
+    return notifications
+}
+
+exports.getNotificationsQuantity = async (userId) => {
+    const query = await this.findById(userId)
+    const notifications = query.notifications
+    return Object.keys(notifications).length
+}
+
 exports.existNotification = async (friendId, executorId, notificationType) => {
     const query = await User.findOne({ _id: friendId},
         {

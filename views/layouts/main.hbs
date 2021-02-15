@@ -31,13 +31,30 @@
       </div>
     </div>
 
+    <div class="uk-navbar-left">
+      <div>
+        <ul class="uk-navbar-nav">
+          {{#if username}}
+          <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">Mi perfil</button></a></li>
+          <li><a>
+              <button class="uk-button uk-button-default text-white" type="button"
+                onClick="addNotifications()">Notificaciones</button>
+              <div uk-dropdown="mode: click" id="notifications">
+              </div>
+            </a></li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+
     <div class="uk-navbar-right">
       <div>
         <ul class="uk-navbar-nav">
           {{#if username}}
-          <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">Perfil</button></a></li>
-          <li><a><button class="uk-button uk-button-default text-white" uk-toggle="target: #modalAgregarAmigo">Agregar amigo</button></a></li>
-          <li><a href="/user/logout"><button class="uk-button uk-button-default text-white">Cerrar sesión</button></a></li>
+          <li><a><button class="uk-button uk-button-default text-white" uk-toggle="target: #modalAgregarAmigo">Agregar
+                amigo</button></a></li>
+          <li><a href="/user/logout"><button class="uk-button uk-button-default text-white">Cerrar sesión</button></a>
+          </li>
           {{else}}
           <li><a href="/user/login"><button class="uk-button uk-button-default text-white">Ingresar</button></a></li>
           <li><a href="/user/register"><button class="uk-button uk-button-default text-white">Registrar</button></a>
@@ -51,27 +68,25 @@
 
   {{>error}}
   <section>
-    {{user.username}}
     {{{body}}}
   </section>
 
   <button class="uk-modal-close-default" type="button" uk-close></button>
-
 
   <!-- formulario para agregar amigo -->
   <div id="modalAgregarAmigo" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
       <h2 class="uk-heading-bullet">Agregar un amigo</h2>
       <form action="/user/addfriend" method="POST">
-          <div class="form-group mt-4">
-            <label for="exampleInputEmail1">Escribe el nombre del usuario que quieras agregar</label>
-            <input type="text" class="form-control mt-2" name='addfriend'>
-            <small id="emailHelp" class="form-text text-muted mt-2">El nombre de usuario debe existir</small>
-          </div>
-          <p class="uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
-            <button class="uk-button uk-button-primary" type="submit">Enviar solicitud</button>
-          </p>
+        <div class="form-group mt-4">
+          <label for="exampleInputEmail1">Escribe el nombre del usuario que quieras agregar</label>
+          <input type="text" class="form-control mt-2" name='addfriend'>
+          <small id="emailHelp" class="form-text text-muted mt-2">El nombre de usuario debe existir</small>
+        </div>
+        <p class="uk-text-right">
+          <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
+          <button class="uk-button uk-button-primary" type="submit">Enviar solicitud</button>
+        </p>
       </form>
     </div>
   </div>
@@ -94,12 +109,30 @@
           <p style="text-align: center;">Copyright Parches</p>
         </div>
       </div>
-
-
   </div>
-
   </footer>
   </div>
 </body>
+
+<script>
+  var notifications = document.getElementById('notifications');
+
+  function addNotifications() {
+    $.get("http://localhost:3000/user/notifications", data => {
+      $.each(data, function () {
+        notifications.innerHTML = ""
+        insertNotification(this.notificationType, this.from, this.createdAt)
+      })
+    });
+  }
+
+  function insertNotification(type, from, createdAt) {
+    if (type == 'friendRequest') {
+      notifications.innerHTML += '<p class="mt-3"> Solicitud de amistad enviado por: '+ from +
+      '<button type="button" class="btn btn-primary btn-sm ml-3">Aceptar</button> <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>'
+    }
+
+  }
+</script>
 
 </html>

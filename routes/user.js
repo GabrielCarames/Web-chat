@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const Notification = require('../models/notification')
-const userController = require('../controllers/userController')
+const userController = require('../controllers/userController');
+const { exists } = require('../models/notification');
 
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -38,6 +39,18 @@ router.post('/register', passport.authenticate('register',
         passReqToCallback: true
     }
 ));
+
+router.get('/notifications', userController.isAuthenticated, async function (req, res, next){
+  const userId = req.user._id
+  const notificationsQuantity = await userController.getNotificationsQuantity(userId)
+
+  //si no tiene notificaciones
+  if(notificationsQuantity == 0) return res.send('nada');
+  else{
+    var notifications = await userController.getNotifications(userId);
+    res.send(notifications)
+  }
+})
 
 router.post('/addfriend', async function(req, res, next) {
   const executorId = req.user._id    // ejecutor de la notificacion
