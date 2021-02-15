@@ -119,10 +119,22 @@
         messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
     })
 
+    function insertMessages(username, message, createdAt){
+         messages.innerHTML +=
+            '<div class="row">'+ 
+               '<div class="col" style= "max-width: 80px">'+
+                    '<img src="{{avatar}}" class="avatarImg" alt="wow">'+
+                '</div>'+
+                '<div class="col" style="margin-left: -20px">'+
+                    '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>'+
+                '</div>'+
+            '</div>'
+    }
+
     // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function(data){
         $.each(data, function(){
-            messages.innerHTML += '<p>' + this.user.username + 'hace:' + convertUntilNow(this.createdAt) + 'dice:' + this.message +'</p>'
+            insertMessages(this.user.username, this.message, this.createdAt)
         })
     })
 
@@ -139,14 +151,15 @@
     // Recibe y muestra cuando el usuario esta escribiendo
     socket.on('typing', function(data) {
         actions.innerHTML = '<p><em style="color: white">' + data + ' esta escribiendo</em></p>'
+            //'<p>' + '&nbsp' + '<img src="{{avatar}}" class="avatarImg" alt="wow">' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(data.createdAt) + '</small>' + '</p>';
     });
 
     // Recibe y muestra el mensaje del usuario
     socket.on('message', function(data, createdAtDate) {
-        console.log(data)
         actions.innerHTML = "";
-        messages.innerHTML += '<p>' + data.username + " dice: " + data.message + '<small>' + '&nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(data.createdAt) + '</small>' + '</p>';
+        insertMessages(data.username, data.message, data.createdAt)
     });
-
-
 </script>
+  
+
+

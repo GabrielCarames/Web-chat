@@ -22,8 +22,18 @@
     background-color: #3c3f62;
     color: white;
     height: 500px;
-    overflow: scroll;
+    overflow-y: scroll;  /* estas mierdas de abajo deberian poner al chat en el ultimo mensaje pero no anda, creo que es porque se debe hacer por js*/
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
 }
+.avatarImg{
+    width: 50px;
+    height: 50px;
+}
+#container > form > div > div > p:last-child {
+    scroll-snap-align: end;
+  }
+
 #messages{
     height: 400px;
 }
