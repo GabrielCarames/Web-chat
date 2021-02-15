@@ -7,12 +7,15 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 exports.existNotification = async (friendId, executorId, notificationType) => {
-    return await User.findOne({ _id: friendId},
+    const query = await User.findOne({ _id: friendId},
         {
             'notifications.from': executorId,
             'notifications.notificationType': notificationType
         }
     )
+    const notifications = query.notifications
+    // retorna la cantidad de notificaciones que tiene, 0 es falso y si es mayor a 0 es true.
+    return Object.keys(notifications).length
 }
 
 exports.addNotification = (friendId, newNotification) => {
