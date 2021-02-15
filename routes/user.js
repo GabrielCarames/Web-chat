@@ -40,29 +40,28 @@ router.post('/register', passport.authenticate('register',
 ));
 
 router.post('/addfriend', async function(req, res, next) {
-        // tipo de notificacion
   const executorId = req.user._id    // ejecutor de la notificacion
   const type = 'friendRequest'
   const friendUsername = req.body.addfriend // username del destinatario
-  console.log(friendUsername, 'sos un re pelotudo')
   const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
+
   if(friend){
     const friendId = friend.id
-    console.log(friendId)
+
     // si ya ha enviado una notificacion de amistad al mismo destinatario
-    const repeated = await userController.existNotification(executorId, friendId, type)
-    console.log(repeated)
+    const repeated = await userController.existNotification(friendId, executorId, type)
     
     if(friend.id == executorId){
       req.flash('messageFailure', 'No puedes enviarte una solicitud de amistad vos mismo.')
       res.redirect(req.get('referer'));
     }
-    if(repeated.notifications){
+
+    if(repeated){
       req.flash('messageFailure', 'Ya has enviado una notificacion a ese usuario')
       res.redirect(req.get('referer'));
-    }
-    else{
-        // crea la nueva notificacion con su tipo y id del ejecutor
+    }else{
+      
+      // crea la nueva notificacion con su tipo y id del ejecutor
       const newNotification = new Notification({
         notificationType: type,
         from: executorId
