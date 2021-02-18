@@ -5,7 +5,7 @@
     color:white;
 }
 #user{
-    height: 80px;
+    max-height: 90px;
 }
 #userdata{
     background-color: rgb(49, 49, 49);
@@ -48,5 +48,4 @@
 }
 #options{
     background-color: rgb(49, 49, 49);
-    height: 50px;
 }

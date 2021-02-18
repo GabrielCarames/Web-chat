@@ -8,11 +8,26 @@
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
-            <div class="row">
-                <h4 id="username" style="color: white;">{{username}}</h4>
+            <div class="row" style="height: 50px;">
+                <div class="col-8">
+                    <h4 id="username" style="color: white;">{{username}}</h4>
+                </div>
+                <div class="col">
+                    <div id="options" class="row">
+                        <div class="col" >
+                            Crear grupo con 
+                        </div>
+                        <div class="col">
+                            Buscador
+                        </div>
+                        <div class="col">
+                            Configuracion
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row" id="actions">
-
+                &nbsp
             </div>
         </div>
     </div>
@@ -43,46 +58,6 @@
             parches
         </div>
     </div>
-    <div id="options" class="row">
-        <div class="col-8">
-            joshmicuca
-        </div>
-        <div class="col-1" onclick="addfriend()">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="height: 80%">
-                <small> Agregar amigos</small> 
-            </button>
-        </div>
-        <div class="col-1" >
-            opcion 2 
-        </div>
-        <div class="col-1">
-            opcion 3 
-        </div>
-        <div class="col-1">
-            configuracion
-        </div>
-
-    </div>
-    <form action="/user/addfriend" method="POST" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar amigos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="color: black;">
-                    <small style="font-size: ;"> Ingresa el nombre del amigo </small>
-                    <input type="text" class="form-control" name="addfriend">
-                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secundary">Salir</button>
-                </div>
-            </div>
-        </div>
-    </form>
 </div>
 
 <script>
