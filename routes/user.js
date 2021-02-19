@@ -52,7 +52,15 @@ router.get('/notifications', userController.isAuthenticated, async function (req
   }
 })
 
-router.post('/addfriend', async function(req, res, next) {
+router.get('/acceptfriendrequest/:userid', async function(req, res, next){
+  const executorId = req.user._id // id del usuario que acepta la solicitud
+  const senderId = req.params.userid  // id del usuario que envio la solicitud y que se le aceptara
+
+  await userController.acceptFriendRequest(executorId, senderId)
+  res.send("hola")
+});
+
+router.post('/sendfriendrequest', async function(req, res, next) {
   const executorId = req.user._id    // ejecutor de la notificacion
   const type = 'friendRequest'
   const friendUsername = req.body.addfriend // username del destinatario

@@ -75,7 +75,7 @@
   <div id="modalAgregarAmigo" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
       <h2 class="uk-heading-bullet">Agregar un amigo</h2>
-      <form action="/user/addfriend" method="POST">
+      <form action="/user/sendfriendrequest" method="POST">
         <div class="form-group mt-4">
           <label for="exampleInputEmail1">Escribe el nombre del usuario que quieras agregar</label>
           <input type="text" class="form-control mt-2" name='addfriend'>
@@ -125,11 +125,13 @@
   }
 
   function insertNotification(type, from, createdAt) {
+    var acceptRouter = "user/acceptfriendrequest/" + from
     if (type == 'friendRequest') {
-      notifications.innerHTML += '<p class="mt-3"> Solicitud de amistad enviado por: '+ from +
-      '<button type="button" class="btn btn-primary btn-sm ml-3">Aceptar</button> <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>'
+      notifications.innerHTML += 
+      '<p class="mt-3"> Solicitud de amistad enviado por: '+ from +
+      '<a type="button" href="' + acceptRouter +'" class="btn btn-primary btn-sm ml-3">Aceptar</a> ' +
+      '<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Rechazar</button>'
     }
-
   }
 </script>
 
