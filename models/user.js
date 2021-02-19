@@ -30,6 +30,10 @@ const User = new Schema({
         type: String,
         required: true
     },
+    friends: {
+        type: [Schema.Types.ObjectId],
+        required: false,
+    },
     notifications: {
         type: [notificationSchema],
         required: false
