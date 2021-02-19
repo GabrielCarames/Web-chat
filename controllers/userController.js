@@ -6,6 +6,38 @@ exports.isAuthenticated = (req, res, next) => {
     res.redirect('/');
 }
 
+exports.addNewFriend = async (userId, newFriend) => {
+    await User.findOneAndUpdate({_id: userId},
+        {
+            $push:{
+                friends: newFriend
+            }
+        }
+    )
+}
+
+exports.removeFriendRequest = async (userId, senderId) => {
+    User.update({ _id: userId },
+        { 
+            $pull: { 
+                notifications: { 
+                    from: senderId,
+                    notificationType: 'friendRequest'    
+                } 
+            }
+        },
+        { multi: true }
+    )
+}
+
+exports.acceptFriendRequest = async (userId, senderId) => {
+    await this.removeFriendRequest(userId, senderId) // elimina la notificacion
+    
+    // se les agrega a los dos de amigo
+    await this.addNewFriend(userId, senderId)
+    await this.addNewFriend(senderId, userId)
+}
+
 exports.getNotifications = async (userId) => {
     const query = await this.findById(userId)
     const notifications = query.notifications
@@ -16,6 +48,15 @@ exports.getNotificationsQuantity = async (userId) => {
     const query = await this.findById(userId)
     const notifications = query.notifications
     return Object.keys(notifications).length
+}
+
+exports.getFriendRequest = async (userId, senderId) => {
+    return await User.findOne({ _id: userId},
+        {
+            'notifications.from': senderId,
+            'notifications.notificationType': 'friendRequest'
+        }
+    )
 }
 
 exports.existNotification = async (friendId, executorId, notificationType) => {
