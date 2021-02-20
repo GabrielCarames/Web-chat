@@ -56,14 +56,16 @@ router.get('/acceptfriendrequest/:userid', async function(req, res, next){
   const senderId = req.params.userid  // id del usuario que envio la solicitud y que se le aceptara
 
   await userController.acceptFriendRequest(executorId, senderId)
-  res.send("hola")
+  req.flash('messageSuccess', 'La solicitud se ha aceptado correctamente')
+  res.redirect(req.get('referer'));
 });
 
 router.get('/refusefriendrequest/:userid', async function(req, res, next){
   const executorId = req.user._id // id del usuario que acepta la solicitud
   const senderId = req.params.userid
   await userController.removeFriendRequest(executorId, senderId)
-  res.send("sosmalvado")
+  req.flash('messageSuccess', 'La solicitud se ha eliminado correctamente')
+  res.redirect(req.get('referer'));
 });
 
 router.post('/sendfriendrequest', async function(req, res, next) {
