@@ -31,6 +31,8 @@ exports.removeFriendRequest = async (userId, senderId) => {
 }
 
 exports.acceptFriendRequest = async (userId, senderId) => {
+    console.log("AYUDa")
+    console.log(userId, senderId)
     await this.removeFriendRequest(userId, senderId) // elimina la notificacion
     
     // se les agrega a los dos de amigo

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const Notification = require('../models/notification')
-const userController = require('../controllers/userController');
+const userController = require("../controllers/userController");
 const { exists } = require('../models/notification');
 
 router.get('/', function(req, res, next) {
@@ -19,7 +19,6 @@ router.get('/register', function(req, res, next) {
 
 router.get('/profile', userController.isAuthenticated, function (req, res, next){
   const cuenta = req.user
-  console.log(cuenta)
   res.render('user/profile', cuenta)
 })
 
@@ -60,10 +59,20 @@ router.get('/acceptfriendrequest/:userid', async function(req, res, next){
   res.send("hola")
 });
 
+router.get('/refusefriendrequest/:userid', async function(req, res, next){
+  const executorId = req.user._id // id del usuario que acepta la solicitud
+  const senderId = req.params.userid
+  await userController.removeFriendRequest(executorId, senderId)
+  res.send("sosmalvado")
+});
+
 router.post('/sendfriendrequest', async function(req, res, next) {
   const executorId = req.user._id    // ejecutor de la notificacion
   const type = 'friendRequest'
   const friendUsername = req.body.addfriend // username del destinatario
+  const fromUser = await userController.findById(executorId)
+  console.log("SOSO")
+  console.log(fromUser)
   const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
 
   if(friend){
@@ -85,8 +94,11 @@ router.post('/sendfriendrequest', async function(req, res, next) {
       // crea la nueva notificacion con su tipo y id del ejecutor
       const newNotification = new Notification({
         notificationType: type,
-        from: executorId
+        from: fromUser
       })
+      console.log("ahora si mos")
+      console.log(newNotification)
+      console.log(newNotification.from)
       
       // agrega la nueva notificacion al destinatario
       userController.addNotification(friendId, newNotification)
