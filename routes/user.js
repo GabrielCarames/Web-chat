@@ -54,6 +54,10 @@ router.get('/notifications', userController.isAuthenticated, async function (req
 router.get('/acceptfriendrequest/:userid', async function(req, res, next){
   const executorId = req.user._id // id del usuario que acepta la solicitud
   const senderId = req.params.userid  // id del usuario que envio la solicitud y que se le aceptara
+  console.log("a ver vos mamita")
+  console.log(executorId)
+  console.log("a ver vos mamitasdasdasdasdasdasdas")
+  console.log(senderId)
 
   await userController.acceptFriendRequest(executorId, senderId)
   req.flash('messageSuccess', 'La solicitud se ha aceptado correctamente')
@@ -73,8 +77,6 @@ router.post('/sendfriendrequest', async function(req, res, next) {
   const type = 'friendRequest'
   const friendUsername = req.body.addfriend // username del destinatario
   const fromUser = await userController.findById(executorId)
-  console.log("SOSO")
-  console.log(fromUser)
   const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
 
   if(friend){
@@ -98,10 +100,7 @@ router.post('/sendfriendrequest', async function(req, res, next) {
         notificationType: type,
         from: fromUser
       })
-      console.log("ahora si mos")
-      console.log(newNotification)
-      console.log(newNotification.from)
-      
+
       // agrega la nueva notificacion al destinatario
       userController.addNotification(friendId, newNotification)
       req.flash('messageSuccess', 'La solicitud se ha enviado correctamente')

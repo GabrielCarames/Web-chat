@@ -6,7 +6,7 @@ const Notification = new Schema({
         type: String
     },
     from: {
-        type: mongoose.Schema.Types.ObjectId
+        type: Object
     },
     createdAt: {
         type: Date, 
