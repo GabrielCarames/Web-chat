@@ -128,7 +128,7 @@
   function insertNotification(id, type, from, createdAt) {
     console.log("la ptua uqete pario")
     console.log(from)
-    var acceptRouter = "user/acceptfriendrequest/" + id + "/" + from
+    var acceptRouter = "user/acceptfriendrequest/" + id + "/" + from._id
     var refuseRouter = "user/refusefriendrequest/" + from._id
     if (type == 'friendRequest') {
       notifications.innerHTML += 

@@ -54,9 +54,9 @@ router.get('/notifications', userController.isAuthenticated, async function (req
 router.get('/acceptfriendrequest/:id/:from', async function(req, res, next){
   const notificationId = req.params.id //obtiene la id de la notificacion para su eliminacion entera
   //console.log(req.params.JSON.stringify(from))
-  const senderId = req.params.from._id  // id del usuario que envio la solicitud y que se le aceptara
+  const senderId = req.params.from  // id del usuario que envio la solicitud y que se le aceptara
   const executorId = req.user._id // id del usuario que acepta la solicitud
-
+  console.log(senderId)
   await userController.acceptFriendRequest(executorId, senderId, notificationId)
   req.flash('messageSuccess', 'La solicitud se ha aceptado correctamente')
   res.redirect(req.get('referer'));

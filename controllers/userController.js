@@ -17,16 +17,37 @@ exports.addNewFriend = async (userId, newFriend) => {
 }
 
 exports.removeFriendRequest = async (userId, notificationId) => {
-    User.update({ _id: userId },
+    console.log("mamita")
+    console.log(userId)
+    console.log(notificationId)
+    User.find({_id: userId}).then(function() {
+        notifications.forEach(function(u) {
+            if(u._id == notificationId){
+                User.findOneAndUpdate({ _id: userId },
+                    { //doble find al pedo ayda tampoc le gusta la sintaxis nada
+                        $pull: {
+                            u.notifications: {
+                                _id = notificationId
+                            }
+                        }
+                    }
+                )
+            }//hay un re quilombo con los corchetes xDd
+        }
+    })
+}        
+      
+    /*User.findOneAndUpdate({ _id: userId },
         { 
-            $pull: { 
+            $pull: {
                 notifications: { 
-                    _id: notificationId   
+ 
+                     _id: notificationId 
+
                 } 
             }
-        },
-        { multi: true }
-    )
+        }
+    )*/
     /*
         User.update({ _id: userId },
         { 
@@ -44,7 +65,7 @@ exports.removeFriendRequest = async (userId, notificationId) => {
         { multi: true }
     )
     */
-}
+
 
 exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
     await this.removeFriendRequest(userId, notificationId) // elimina la notificacion
