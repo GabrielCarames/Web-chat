@@ -16,24 +16,38 @@ exports.addNewFriend = async (userId, newFriend) => {
     )
 }
 
-exports.removeFriendRequest = async (userId, senderId) => {
+exports.removeFriendRequest = async (userId, notificationId) => {
     User.update({ _id: userId },
         { 
             $pull: { 
                 notifications: { 
-                    from: senderId,
+                    _id: notificationId   
+                } 
+            }
+        },
+        { multi: true }
+    )
+    /*
+        User.update({ _id: userId },
+        { 
+            $pull: { 
+                notifications: { 
+                    from: {
+                        $in:{
+                            _id: senderId
+                        }
+                    },
                     notificationType: 'friendRequest'    
                 } 
             }
         },
         { multi: true }
     )
+    */
 }
 
-exports.acceptFriendRequest = async (userId, senderId) => {
-    console.log("AYUDa")
-    console.log(userId, senderId)
-    await this.removeFriendRequest(userId, senderId) // elimina la notificacion
+exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
+    await this.removeFriendRequest(userId, notificationId) // elimina la notificacion
     
     // se les agrega a los dos de amigo
     await this.addNewFriend(userId, senderId)

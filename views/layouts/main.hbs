@@ -117,17 +117,18 @@
   function addNotifications() {
     $.get("http://localhost:3000/user/notifications", data => {
       console.log(data)
+      console.log(data._id)
       $.each(data, function () {
         notifications.innerHTML = ""
-        insertNotification(this.notificationType, this.from, this.createdAt)
+        insertNotification(this._id, this.notificationType, this.from,this.createdAt)
       })
     });
   }
 
-  function insertNotification(type, from, createdAt) {
-    //var usernameFrom = await userController.findById(from)
+  function insertNotification(id, type, from, createdAt) {
+    console.log("la ptua uqete pario")
     console.log(from)
-    var acceptRouter = "user/acceptfriendrequest/" + from._id
+    var acceptRouter = "user/acceptfriendrequest/" + id + "/" + from
     var refuseRouter = "user/refusefriendrequest/" + from._id
     if (type == 'friendRequest') {
       notifications.innerHTML += 
