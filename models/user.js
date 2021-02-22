@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const notification = require('./notification');
-require('./notification');
-const notificationSchema = mongoose.model('Notification').schema
 const {Schema, model} = mongoose;
 
 const User = new Schema({
@@ -30,18 +27,22 @@ const User = new Schema({
         type: String,
         required: true
     },
-    friends: {
-        type: [Schema.Types.ObjectId],
-        required: false,
-    },
-    notifications: {
-        type: [notificationSchema],
-        required: false
-    },
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        }
+    ],
+    notifications: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Notification',
+        }
+    ],
     createdAt: {
          type: Date, 
          default: Date.now
     }
 })
 
-module.exports = model("Userxd", User)
+module.exports = model("User", User)

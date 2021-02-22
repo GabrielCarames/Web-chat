@@ -7,12 +7,9 @@ const Message = new Schema({
         required: true
     },
     user: {
-        type: mongoose.model('Userxd').schema,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
-    },
-    username: {
-        type: String,
-        required: false
     },
     createdAt: {
         type: Date, 

@@ -6,7 +6,8 @@ const Notification = new Schema({
         type: String
     },
     from: {
-        type: Object
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     createdAt: {
         type: Date, 

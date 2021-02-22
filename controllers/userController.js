@@ -1,3 +1,4 @@
+const { populate } = require('../models/user');
 const User = require('../models/user');
 
 exports.isAuthenticated = (req, res, next) => {
@@ -7,77 +8,48 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 exports.addNewFriend = async (userId, newFriend) => {
-    await User.findOneAndUpdate({_id: userId},
+    await User.findOneAndUpdate({ _id: userId },
         {
-            $push:{
+            $push: {
                 friends: newFriend
             }
         }
     )
 }
 
-exports.removeFriendRequest = async (userId, notificationId) => {
-    console.log("mamita")
+exports.removeNotification = async (userId, notificationId) => {
     console.log(userId)
     console.log(notificationId)
-    User.find({_id: userId}).then(function() {
-        notifications.forEach(function(u) {
-            if(u._id == notificationId){
-                User.findOneAndUpdate({ _id: userId },
-                    { //doble find al pedo ayda tampoc le gusta la sintaxis nada
-                        $pull: {
-                            u.notifications: {
-                                _id = notificationId
-                            }
-                        }
-                    }
-                )
-            }//hay un re quilombo con los corchetes xDd
-        }
+    var user = await this.findById(userId)
+    var a = user.notifications.map(n => {
+        if (n._id != notificationId)
+            return n
     })
-}        
-      
-    /*User.findOneAndUpdate({ _id: userId },
-        { 
-            $pull: {
-                notifications: { 
- 
-                     _id: notificationId 
-
-                } 
-            }
-        }
-    )*/
-    /*
-        User.update({ _id: userId },
-        { 
-            $pull: { 
-                notifications: { 
-                    from: {
-                        $in:{
-                            _id: senderId
-                        }
-                    },
-                    notificationType: 'friendRequest'    
-                } 
-            }
-        },
-        { multi: true }
-    )
-    */
-
+    console.log(a)
+    //user.save()
+}
 
 exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
-    await this.removeFriendRequest(userId, notificationId) // elimina la notificacion
-    
+    await this.removeNotification(userId, notificationId) // elimina la notificacion
+
+    /*
     // se les agrega a los dos de amigo
     await this.addNewFriend(userId, senderId)
     await this.addNewFriend(senderId, userId)
+    */
 }
 
 exports.getNotifications = async (userId) => {
-    const query = await this.findById(userId)
+    const query = await User.findOne({ _id: userId}).populate({
+            path: 'notifications',
+            model: 'Notification',
+            populate: {
+                path: 'from',
+                model: 'User'
+            }
+        })
     const notifications = query.notifications
+    console.log(notifications)
     return notifications
 }
 
@@ -88,7 +60,7 @@ exports.getNotificationsQuantity = async (userId) => {
 }
 
 exports.getFriendRequest = async (userId, senderId) => {
-    return await User.findOne({ _id: userId},
+    return await User.findOne({ _id: userId },
         {
             'notifications.from': senderId,
             'notifications.notificationType': 'friendRequest'
@@ -97,7 +69,7 @@ exports.getFriendRequest = async (userId, senderId) => {
 }
 
 exports.existNotification = async (friendId, executorId, notificationType) => {
-    const query = await User.findOne({ _id: friendId},
+    const query = await User.findOne({ _id: friendId },
         {
             'notifications.from': executorId,
             'notifications.notificationType': notificationType
@@ -110,11 +82,13 @@ exports.existNotification = async (friendId, executorId, notificationType) => {
 
 exports.addNotification = (friendId, newNotification) => {
     // encuentra y actualiza agregandole la nueva notificacion al campo notifications
-    return User.findOneAndUpdate({_id: friendId},
-        {$push:{
-            notifications: newNotification
-        }},(err) => {
-            if(err){
+    return User.findOneAndUpdate({ _id: friendId },
+        {
+            $push: {
+                notifications: newNotification
+            }
+        }, (err) => {
+            if (err) {
                 console.log(err)
             }
             console.log("ganaste")
@@ -127,15 +101,15 @@ exports.findById = async (id) => {
 }
 
 exports.findByUsername = async (name) => {
-    return User.findOne({'username': name})
+    return User.findOne({ 'username': name })
 }
 
 exports.findByEmail = async (email) => {
-    return User.findOne({'email': email})
+    return User.findOne({ 'email': email })
 }
 
 exports.findByPassword = async (password) => {
-    return User.findOne({'password': password})
+    return User.findOne({ 'password': password })
 }
 
 exports.getUsername = async (id) => {
@@ -144,8 +118,8 @@ exports.getUsername = async (id) => {
 }
 
 exports.createUser = async (values) => {
-    const {username, password, email, country, gender} = values
-    const newUser = new User({username, password, email, country, gender})
+    const { username, password, email, country, gender } = values
+    const newUser = new User({ username, password, email, country, gender })
     await newUser.save()
     return newUser
 }
