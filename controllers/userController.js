@@ -1,5 +1,5 @@
-const { populate } = require('../models/user');
 const User = require('../models/user');
+const Notification = require('../models/notification')
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated())
@@ -17,67 +17,53 @@ exports.addNewFriend = async (userId, newFriend) => {
     )
 }
 
-exports.removeNotification = async (userId, notificationId) => {
-    console.log(userId)
-    console.log(notificationId)
-    var user = await this.findById(userId)
-    var a = user.notifications.map(n => {
-        if (n._id != notificationId)
-            return n
-    })
-    console.log(a)
-    //user.save()
-}
-
 exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
     await this.removeNotification(userId, notificationId) // elimina la notificacion
 
-    /*
     // se les agrega a los dos de amigo
     await this.addNewFriend(userId, senderId)
     await this.addNewFriend(senderId, userId)
-    */
+}
+
+exports.getFriends = async (userId) => {
+    const user = await this.findById(userId)
+    return user.friends
+}
+
+exports.getFriendsQuantity = async (userId) => {
+    const user = await this.findById(userId)
+    const friends = user.friends
+    return Object.keys(friends).length
 }
 
 exports.getNotifications = async (userId) => {
-    const query = await User.findOne({ _id: userId}).populate({
-            path: 'notifications',
-            model: 'Notification',
-            populate: {
-                path: 'from',
-                model: 'User'
-            }
-        })
-    const notifications = query.notifications
-    console.log(notifications)
-    return notifications
+    const user = await User.findById(userId)
+    return user.notifications
 }
 
 exports.getNotificationsQuantity = async (userId) => {
-    const query = await this.findById(userId)
-    const notifications = query.notifications
+    const user = await this.findById(userId)
+    const notifications = user.notifications
     return Object.keys(notifications).length
 }
 
-exports.getFriendRequest = async (userId, senderId) => {
-    return await User.findOne({ _id: userId },
-        {
-            'notifications.from': senderId,
-            'notifications.notificationType': 'friendRequest'
-        }
-    )
+exports.existNotification = async (userId, executorId, notificationType) => {
+    const user = await this.findById(userId)
+    const notifications = user.notifications
+    const action = notifications.find(notification => notification.notificationType == notificationType && notification.from.id == executorId)
+    // si no encontro nada el typeof de action vale undefined, entonces si es diferente a undefined es que encontro la notificacion
+    return typeof action != 'undefined'
 }
 
-exports.existNotification = async (friendId, executorId, notificationType) => {
-    const query = await User.findOne({ _id: friendId },
+exports.removeNotification = async (userId, notificationId) => {
+    await User.updateOne({ _id: userId },
         {
-            'notifications.from': executorId,
-            'notifications.notificationType': notificationType
+            $pull: {
+                notifications: notificationId
+            }
         }
     )
-    const notifications = query.notifications
-    // retorna la cantidad de notificaciones que tiene, 0 es falso y si es mayor a 0 es true.
-    return Object.keys(notifications).length
+    await Notification.remove({ _id: notificationId})
 }
 
 exports.addNotification = (friendId, newNotification) => {
@@ -97,7 +83,20 @@ exports.addNotification = (friendId, newNotification) => {
 }
 
 exports.findById = async (id) => {
-    return User.findById(id)
+    return User.findById(id).populate([
+        {
+            path: 'notifications',
+            model: 'Notification',
+            populate: {
+                path: 'from',
+                model: 'User'
+            }
+        },
+        {
+            path: 'friends',
+            model: 'User',
+        }
+    ])
 }
 
 exports.findByUsername = async (name) => {
