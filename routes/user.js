@@ -6,17 +6,21 @@ const Notification = require('../models/notification')
 const userController = require("../controllers/userController");
 
 
-router.get('/login', function (req, res, next) {
+router.get('/login', function (req, res) {
   res.render('user/login');
 });
 
-router.get('/register', function (req, res, next) {
+router.get('/register', function (req, res) {
   res.render('user/register');
 });
 
-router.get('/profile', userController.isAuthenticated, function (req, res, next) {
+router.get('/profile', userController.isAuthenticated, function (req, res) {
   const cuenta = req.user
   res.render('user/profile', cuenta)
+})
+
+router.get('/friends', userController.isAuthenticated, function (req, res) {
+  res.render('user/friends')
 })
 
 router.post('/login', passport.authenticate('login',
@@ -36,19 +40,22 @@ router.post('/register', passport.authenticate('register',
   }
 ));
 
-router.get('/notifications', userController.isAuthenticated, async function (req, res, next) {
+router.get('/getfriends', userController.isAuthenticated, function (req, res) {
+  res.send({status: false, message: 'no hay'})
+})
+
+router.get('/notifications', userController.isAuthenticated, async function (req, res) {
   const userId = req.user._id
   const notificationsQuantity = await userController.getNotificationsQuantity(userId)
 
-  //si no tiene notificaciones
-  if (notificationsQuantity == 0) return res.send('nada');
+  if (notificationsQuantity == 0) return res.send({status: false, message: 'No tienes notificaciones'});
   else {
-    var notifications = await userController.getNotifications(userId);
-    res.send(notifications)
+    const notifications = await userController.getNotifications(userId);
+    res.send({status: true, notifications})
   }
 })
 
-router.get('/acceptFriendRequest/:senderid/:notificationid', async function (req, res, next) {
+router.get('/acceptFriendRequest/:notificationid/:senderid', async function (req, res) {
   const senderId = req.params.senderid
   const executorId = req.user._id
   const notificationId = req.params.notificationid
@@ -57,17 +64,17 @@ router.get('/acceptFriendRequest/:senderid/:notificationid', async function (req
   res.redirect(req.get('referer'));
 });
 
-router.get('/refusefriendrequest/:userid', async function (req, res, next) {
-  const executorId = req.user._id // id del usuario que acepta la solicitud
-  const senderId = req.params.userid
-  await userController.removeFriendRequest(executorId, senderId)
+router.get('/refuseFriendrequest/:notificationid', async function (req, res) {
+  const executorId = req.user._id
+  const notificationId = req.params.notificationid
+  await userController.removeNotification(executorId, notificationId)
   req.flash('messageSuccess', 'La solicitud se ha eliminado correctamente')
   res.redirect(req.get('referer'));
 });
 
-router.post('/sendfriendrequest', async function (req, res, next) {
+router.post('/sendfriendrequest', async function (req, res) {
   const type = 'friendRequest'
-  const executorId = req.user._id    // ejecutor de la notificacion
+  const executorId = req.user.id    // ejecutor de la notificacion
   const friendUsername = req.body.addfriend // username del destinatario
   const friend = await userController.findByUsername(friendUsername)  // encuentra al objeto destinatario
 
@@ -79,12 +86,12 @@ router.post('/sendfriendrequest', async function (req, res, next) {
 
     if (friend.id == executorId) {
       req.flash('messageFailure', 'No puedes enviarte una solicitud de amistad vos mismo.')
-      res.redirect(req.get('referer'));
+      return res.redirect(req.get('referer'));
     }
 
     if (repeated) {
       req.flash('messageFailure', 'Ya has enviado una notificacion a ese usuario')
-      res.redirect(req.get('referer'));
+      return res.redirect(req.get('referer'));
     } else {
 
       // crea la nueva notificacion con su tipo y id del ejecutor
@@ -108,11 +115,11 @@ router.post('/sendfriendrequest', async function (req, res, next) {
   }
 });
 
-router.get('/userlogged', function (req, res, next) {
+router.get('/userlogged', function (req, res) {
   res.send(req.user);
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function (req, res) {
   req.logout()
   res.redirect('/')
 });
