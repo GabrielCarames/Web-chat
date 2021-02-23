@@ -1,0 +1,15 @@
+<div id="friendsPanel">
+
+</div>
+<script>
+    var friendsPanel = document.getElementById('friendsPanel');
+    function addFriends() {
+        $.get("http://localhost:3000/user/getfriends", data => {
+            if (data.status) { // si tiene amigos
+                
+            } else {
+                notifications.innerHTML = data.message
+            }
+        });
+    }
+</script>
