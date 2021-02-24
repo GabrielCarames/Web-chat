@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const Chat = new Schema({
+    chatType: {
+        type: String,
+        required: true
+    },
     messages: [
         {
             type: Schema.Types.ObjectId,
