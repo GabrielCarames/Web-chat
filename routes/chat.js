@@ -8,4 +8,6 @@ router.get('/', userController.isAuthenticated, function(req, res, next) {
   res.render('webchat', cuenta)
 });
 
+
+
 module.exports = router;
