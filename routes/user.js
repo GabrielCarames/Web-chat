@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const Notification = require('../models/notification')
 const userController = require("../controllers/userController");
+var notifications = []
 
 
 router.get('/login', function (req, res) {
@@ -50,8 +51,14 @@ router.get('/notifications', userController.isAuthenticated, async function (req
 
   if (notificationsQuantity == 0) return res.send({status: false, message: 'No tienes notificaciones'});
   else {
-    const notifications = await userController.getNotifications(userId);
-    res.send({status: true, notifications})
+    var notifications = []
+    const notificationsId = await userController.getNotifications(userId);
+    notificationsId.forEach(async notificationid => {
+      notifications.push(await Notification.find({_id: notificationid}))
+    });
+    console.log("sosreputo")
+    console.log(notifications)
+    //res.send({status: true, notification})
   }
 })
 

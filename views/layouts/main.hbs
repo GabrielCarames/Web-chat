@@ -116,6 +116,7 @@
   var notifications = document.getElementById('notifications');
   function addNotifications() {
     $.get("http://localhost:3000/user/notifications", data => {
+      console.log(data)
       if (data.status) { // si tiene notificaciones
         notifications.innerHTML = ""
         $.each(data.notifications, function () {
