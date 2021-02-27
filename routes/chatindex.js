@@ -4,7 +4,7 @@ const userController = require('../controllers/userController')
 
 router.get('/', userController.isAuthenticated, function(req, res, next) {
   const cuenta = req.user
-  res.render('chat', cuenta)
+  res.render('chatIndex', cuenta)
 });
 
 module.exports = router;

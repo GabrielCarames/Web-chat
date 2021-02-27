@@ -15,6 +15,7 @@ require('./passport/authenticator');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var chatRouter = require('./routes/chat');
+var chatindexRouter = require('./routes/chatindex');
 
 var app = express();
 
@@ -58,5 +59,6 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
+app.use('/chatindex', chatindexRouter);
 
 module.exports = app;

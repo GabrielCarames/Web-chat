@@ -5,12 +5,13 @@
 <div id="notifications">
 
 </div>
+<h4 id="username" style="color: white;" hidden>{{username}}</h4>
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
             <div class="row" style="height: 50px;">
                 <div class="col-8">
-                    <h4 id="username" style="color: white;">{{username}}</h4>
+                    <h4 id="chatUsername" style="color: white;"> </h4>
                 </div>
                 <div class="col">
                     <div id="options" class="row">
@@ -110,13 +111,12 @@
                     '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>'+
                 '</div>'+
             '</div>'
+        chatUsername.innerHTML = username
     }
 
     // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function(data){
         $.each(data, function(){
-            console.log(this.user)
-            console.log(this.user.username)
             insertMessages(this.user.username, this.message, this.createdAt)
         })
     })

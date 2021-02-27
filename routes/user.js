@@ -44,7 +44,9 @@ router.post('/register', passport.authenticate('register',
 router.get('/getfriends', userController.isAuthenticated, async function (req, res) {
   const userId = req.user._id
   const friends = await userController.getFriends(userId)
-  if(friends){
+  console.log("holas")
+  console.log(friends)
+  if(friends.length){
     res.send({status: true, friends})
   }else{
     res.send({status: false, message: 'No tienes amigos disponibles.'})

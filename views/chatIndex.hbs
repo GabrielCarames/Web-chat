@@ -7,7 +7,7 @@
         <div id="userdata" class="col">
             <div class="row" style="height: 50px;">
                 <div class="col-8">
-                    <h4 id="username" style="color: white;">{{username}}</h4>
+                    <h4 id="username" style="color: white;">PollitoMuertoWeb</h4>
                 </div>
                 <div class="col">
                     <div id="options" class="row">
@@ -50,16 +50,17 @@
 <script>
     var friendsPanel = document.getElementById('friendsPanel');
     $.get("http://localhost:3000/user/getfriends", data => {
+        console.log(data)
         if (data.status) {
             $.each(data.friends, function(){
                 friendsPanel.innerHTML += 
                     '<div class="col">' +/*
-                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ this.username +
+                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ '<a href="http://localhost:3000/chat/">'+  this.username + '</a>' +
                         ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: '+
                     '</div>'
             })
         } else {
-            friendsPanel.innerHTML = data.message
+            friendsPanel.innerHTML += data.message
         }
     });
 </script>
