@@ -5,9 +5,7 @@ const userController = require('../controllers/userController')
 router.get('/', userController.isAuthenticated, function(req, res, next) {
   const cuenta = req.user
   console.log(cuenta.username)
-  res.render('webchat', cuenta)
+  res.render('chatIndex', cuenta)
 });
-
-
 
 module.exports = router;

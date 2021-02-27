@@ -1,0 +1,65 @@
+<link rel='stylesheet' href='/css/webchat.css' />
+<script src="/socket.io/socket.io.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+<script src="//momentjs.com/downloads/moment-with-locales.js"></script>
+<div id="container" class="container">
+    <div id="user" class="row">
+        <div id="userdata" class="col">
+            <div class="row" style="height: 50px;">
+                <div class="col-8">
+                    <h4 id="username" style="color: white;">{{username}}</h4>
+                </div>
+                <div class="col">
+                    <div id="options" class="row">
+                        <div class="col" >
+                            Crear grupo con 
+                        </div>
+                        <div class="col">
+                            Buscador
+                        </div>
+                        <div class="col">
+                            Configuracion
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="actions">
+                &nbsp
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="groupsPanel" class="col-4">
+            "(foto)" grupo 1 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br> 
+            "(foto)" grupo 2 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br>
+            "(foto)" grupo 3 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br>
+        </div>
+        <div class="col-8" style="background-color: #3c3f62;">
+            <div id="friendsPanel" class="row">
+
+            </div>
+            <div class="row">
+                <img src="/img/logo.jpg" alt="50%" width="50%" height="50%" style="margin-left: 250px;">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var friendsPanel = document.getElementById('friendsPanel');
+    $.get("http://localhost:3000/user/getfriends", data => {
+        if (data.status) {
+            $.each(data.friends, function(){
+                friendsPanel.innerHTML += 
+                    '<div class="col">' +/*
+                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ this.username +
+                        ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: '+
+                    '</div>'
+            })
+        } else {
+            friendsPanel.innerHTML = data.message
+        }
+    });
+</script>
