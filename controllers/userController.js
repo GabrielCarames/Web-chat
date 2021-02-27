@@ -37,7 +37,7 @@ exports.getFriendsQuantity = async (userId) => {
 }
 
 exports.getNotifications = async (userId) => {
-    const user = await User.findById(userId)
+    const user = await this.findById(userId)
     //var tachancka = await User.find(notification => notification.notifications == user.notifications.)
     return user.notifications
 }
