@@ -38,25 +38,15 @@
             </div>
         </div>
         <div class="row">
-            <input id="message" class="form-control" placeholder="Your Message Here"></input>
+            <input id="message" class="form-control" placeholder="Escribe un mensaje"></input>
             <button id="send" class="btn btn-success">Send</button>
         </div>
     </form>
-    <div id="friendsOne" class="row">
-        <div class="col">
-            don pepe  pizzeria
-        </div>
-        <div class="col">
-            tachancka
-        </div>
+    <div id="friendsPanel" class="row">
+
     </div>
     <div id="friendsTwo" class="row">
-        <div class="col">
-            jose mantas
-        </div>
-        <div class="col">
-            parches
-        </div>
+        
     </div>
 </div>
 
@@ -65,6 +55,22 @@
     var username = $("#username").text()
     var form = document.getElementById('form');
     var message = document.getElementById('message');
+    var friendsPanel = document.getElementById('friendsPanel');
+
+    $.get("http://localhost:3000/user/getfriends", data => {
+        if (data.status) {
+            $.each(data.friends, function(){
+                friendsPanel.innerHTML += 
+                    '<div class="col">' +/*
+                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ this.username +
+                        ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: '+
+                    '</div>'
+            })
+        } else {
+            friendsPanel.innerHTML = data.message
+        }
+    });
+    
 
     // convierte fecha linda
     function convertUntilNow(datetime){
@@ -109,6 +115,8 @@
     // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function(data){
         $.each(data, function(){
+            console.log(this.user)
+            console.log(this.user.username)
             insertMessages(this.user.username, this.message, this.createdAt)
         })
     })

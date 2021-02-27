@@ -41,7 +41,7 @@
     width: 96.1%; 
     height: 50px;
 }
-#friendsOne, #friendsTwo{
+#friendsPanel, #friendsTwo{
     height: 100px;
     background-color: #3c3f62;
     border-color: red;

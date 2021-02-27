@@ -19,6 +19,8 @@ module.exports = (io) => {
             }
             // Cuando el usuario se conecta se findea los mensajes del campo Message y se lo manda al cliente
             var data = await messageController.getAllMessages();
+            console.log("joshmicuca")
+            console.log(data)
             socket.emit("chathistory", data)
         })
 
