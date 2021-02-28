@@ -25,6 +25,12 @@ exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
     await this.addNewFriend(senderId, userId)
 }
 
+exports.getOneFriendByUsername = async (userId, friendUsername) => {
+    const friends = await this.getFriends(userId)
+    const friend = friends.find(friend => friend.username == friendUsername)
+    return typeof friend != 'undefined'
+} 
+
 exports.getFriends = async (userId) => {
     const user = await this.findById(userId)
     return user.friends
@@ -38,7 +44,6 @@ exports.getFriendsQuantity = async (userId) => {
 
 exports.getNotifications = async (userId) => {
     const user = await this.findById(userId)
-    //var tachancka = await User.find(notification => notification.notifications == user.notifications.)
     return user.notifications
 }
 
