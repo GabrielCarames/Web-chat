@@ -37,8 +37,10 @@
         <ul class="uk-navbar-nav">
           {{#if username}}
           <li><a href="/"><img src="{{avatar}}" class="avatarImg" alt="wow"></a></li>
-          <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">{{username}}</button></a></li>
-          <li> <a>
+          <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">{{username}}</button></a>
+          </li>
+          <li>
+            <a>
               <button class="uk-button uk-button-default text-white" type="button"
                 onClick="addNotifications()">Notificaciones</button>
               <div uk-dropdown="mode: click" id="notifications"></div>
@@ -48,6 +50,7 @@
         </ul>
       </div>
     </div>
+
     <div class="uk-navbar-right">
       <div>
         <ul class="uk-navbar-nav">
@@ -91,26 +94,21 @@
   </div>
 
   <div uk-scrollspy="">
-    <footer class="footer">
-      <div class="hola d-flex flex-row d-flex bd-highlight">
-        <div class="mr-auto p-2 bd-highlight">
-          <ul class="uk-navbar-nav pl-4">
-            <li class="uk-active"><a href="/" class="text-white">Contacto</a></li>
-            <li class="uk-active"><a href="/" class="text-white">Términos</a></li>
-            <li class="uk-active"><a href="/" class="text-white">Preguntas frecuentes</a></li>
+    <footer>
+      <div class="uk-navbar-container" uk-navbar style="background-color: #24263d;">
+
+        <div class="uk-navbar-center">
+          <ul class="uk-navbar-nav p-2">
+            <li><a class="uk-button text-white">Términos</a></li>
+            <li><a class="uk-button text-white">Contacto</a></li>
+            <li><a class="uk-button text-white">Preguntas frecuentes</a></li>
           </ul>
         </div>
-        <div class="p-2 bd-highlight text-white">Facebook</div>
-        <div class="p-2 bd-highlight text-white">Twitter</div>
+
       </div>
-      <div>
-        <div class="d-flex flex-row align-items-center">
-          <p style="text-align: center;">Copyright Parches</p>
-        </div>
-      </div>
+    </footer>
   </div>
-  </footer>
-  </div>
+
 </body>
 
 <script>
@@ -133,7 +131,7 @@
       var acceptRouter = "user/acceptFriendRequest/" + id + '/' + from._id
       var refuseRouter = "user/refuseFriendRequest/" + id
       notifications.innerHTML +=
-      '<p class="mt-3"> Solicitud de amistad enviado por: ' + from.username +
+        '<p class="mt-3"> Solicitud de amistad enviado por: ' + from.username +
         '<a type="button" href="' + acceptRouter + '" class="btn btn-primary btn-sm ml-3">Aceptar</a> ' +
         '<a type="button" href="' + refuseRouter + '" class="btn btn-danger btn-sm" data-bs-dismiss="toast">Rechazar</a>'
     }
