@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Notification = require('../models/notification')
+const chatController = require('../controllers/chatController')
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated())
@@ -23,6 +24,9 @@ exports.acceptFriendRequest = async (userId, senderId, notificationId) => {
     // se les agrega a los dos de amigo
     await this.addNewFriend(userId, senderId)
     await this.addNewFriend(senderId, userId)
+
+    // crea el chat privado
+    await chatController.createPrivateChat(userId, senderId)
 }
 
 exports.getOneFriendByUsername = async (userId, friendUsername) => {

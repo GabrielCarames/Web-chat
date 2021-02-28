@@ -7,8 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('discord:server');
 var http = require('http');
-const Message = require('../models/message');
-const { converter } = require('../config/functions');
 
 /**
  * Get port from environment and store in Express.
@@ -23,6 +21,9 @@ app.set('port', port);
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
+
+// establece la variable io para usarlo en las rutas
+app.set("io", io);
 
 // pasa la variable io al archivo socket.js
 require('../socket.js')(io) 

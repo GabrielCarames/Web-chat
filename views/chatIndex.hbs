@@ -55,7 +55,8 @@
             $.each(data.friends, function(){
                 friendsPanel.innerHTML += 
                     '<div class="col">' +/*
-                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ '<a href="http://localhost:3000/chat/">'+  this.username + '</a>' +
+                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ 
+                        '<a href="http://localhost:3000/chat/search/' + this._id +'">'+  this.username + '</a>' +
                         ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: '+
                     '</div>'
             })

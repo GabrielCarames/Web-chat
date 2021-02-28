@@ -54,6 +54,7 @@
 <script>
     var socket = io();
     var username = $("#username").text()
+    var chatId = (window.location.href).split('/')[4]
     var form = document.getElementById('form');
     var message = document.getElementById('message');
     var friendsPanel = document.getElementById('friendsPanel');
@@ -82,7 +83,7 @@
     }
 
     // Envia al server que el usuario se conecto
-    socket.emit('connected', username)
+    socket.emit('connected', username, chatId)
 
     // Cuando un usuario envia un mensaje, se emite esta accion con el nombre y el mensaje del usuario al servidor
     form.addEventListener('submit', function(e) {
