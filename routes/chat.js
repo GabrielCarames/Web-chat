@@ -17,11 +17,11 @@ router.get('/searchchatfriend/:friendId', chatController.verifyPrivateChat, func
 });
 
 router.get('/searchchatgroup/:groupId', chatController.verifyPublicChat, function(req, res) {
-  const chatGroupId = req.chatGroupId
+  const chatGroup = req.chatGroup
   console.log("rolemanaratatat?")
-  console.log(chatGroupId)
+  console.log(chatGroup)
   // obtiene el chatid que se creo en verifyPrivateChat y lo redirecciona a la ruta de arriba
-  res.redirect('/chat/' + chatGroupId)
+  res.redirect('/chat/' + chatGroup.id, chatGroup)
 });
 
 //METELO ACA EL GRoup

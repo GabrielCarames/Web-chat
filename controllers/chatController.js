@@ -112,6 +112,6 @@ exports.verifyPublicChat = async (req, res, next) => {
     console.log(chat)
     console.log(chat.id)
     // agrega la variable chatid
-    req.chatGroupId = chat.id
+    req.chatGroup = chat
     next()
 }

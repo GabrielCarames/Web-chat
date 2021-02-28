@@ -11,12 +11,12 @@
         <div id="userdata" class="col">
             <div class="row" style="height: 50px;">
                 <div class="col-8">
-                    <h4 id="chatUsername" style="color: white;"> </h4>
+                    <h4 id="chatName" style="color: white;"> </h4>
                 </div>
                 <div class="col">
                     <div id="options" class="row">
                         <div class="col" >
-                            Crear grupo con 
+                            Crear grupo 
                         </div>
                         <div class="col">
                             Buscador
@@ -58,7 +58,7 @@
     var form = document.getElementById('form');
     var message = document.getElementById('message');
     var friendsPanel = document.getElementById('friendsPanel');
-
+    
     $.get("http://localhost:3000/user/getfriends", data => {
         if (data.status) {
             $.each(data.friends, function(){
@@ -112,14 +112,19 @@
                     '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>'+
                 '</div>'+
             '</div>'
-        chatUsername.innerHTML = username
+        
     }
 
     // Recibe y mustra el historial de mensajes
-    socket.on('chathistory', function(data){
-        $.each(data, function(){
+    socket.on('chathistory', function(messages, chatinfo){
+        $.each(messages, function(){
             insertMessages(this.user.username, this.message, this.createdAt)
         })
+        if(chatinfo.chatType == 'public'){
+            chatName.innerHTML += chatinfo.name
+        }else{
+            chatName.innerHTML += chatinfo.users[0].username
+        }
     })
 
     // Recibe y muestra la desconexion de un usuario
