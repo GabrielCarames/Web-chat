@@ -90,6 +90,14 @@ router.post('/sendfriendrequest', async function (req, res) {
   if (friend) {
     const friendId = friend.id
 
+    const isFriend = await userController.getOneFriendByUsername(executorId, friendUsername)
+
+    // si ya es su amigo
+    if(isFriend){
+      req.flash('messageFailure', 'Ese usuario ya es tu amigo.')
+      return res.redirect(req.get('referer'));
+    }
+
     // si ya ha enviado una notificacion de amistad al mismo destinatario
     const repeated = await userController.existNotification(friendId, executorId, type)
 
