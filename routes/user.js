@@ -4,8 +4,7 @@ const passport = require('passport');
 
 const Notification = require('../models/notification')
 const userController = require("../controllers/userController");
-var notifications = []
-
+const chatController = require('../controllers/chatController')
 
 router.get('/login', function (req, res) {
   res.render('user/login');
@@ -44,12 +43,20 @@ router.post('/register', passport.authenticate('register',
 router.get('/getfriends', userController.isAuthenticated, async function (req, res) {
   const userId = req.user._id
   const friends = await userController.getFriends(userId)
-  console.log("holas")
-  console.log(friends)
   if(friends.length){
     res.send({status: true, friends})
   }else{
     res.send({status: false, message: 'No tienes amigos disponibles.'})
+  }
+})
+
+router.get('/getgroups', userController.isAuthenticated, async function (req, res) {
+  const userId = req.user._id
+  const groups = await chatController.getAllGroups(userId)
+  if(groups.length){
+    res.send({status: true, groups})
+  }else{
+    res.send({status: false, message: 'No tienes grupos disponibles.'})
   }
 })
 

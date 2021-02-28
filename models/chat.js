@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const Chat = new Schema({
+    name: {
+        type: String
+    },
     chatType: {
         type: String,
         required: true
