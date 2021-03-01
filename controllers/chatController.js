@@ -35,14 +35,12 @@ exports.getAllGroups = async () => {
     })
 }
 
-exports.getAllUsersGroup = async (user, name) => {
+exports.getAllUsersGroup = async (name) => {
     // encuentra los usuarios pertenecientes al grupo
+    //che findear solo el campo users de tal grupo
     return await Chat.findOne({ 
-        name: name, 
-        users: {
-            $all: [user]
-        }
-    })
+        name: name
+    }, 'users')
 }
 
 exports.findChatById = async (groupId) => {
