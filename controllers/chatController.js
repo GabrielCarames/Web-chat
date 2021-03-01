@@ -29,10 +29,16 @@ exports.findPrivateChat = async (firstUser, secondUser) => {
     })
 }
 
-exports.getAllGroups = async (user) => {
-    // encuentra el chat publico con cierta
+exports.getAllGroups = async () => {
     return await Chat.find({ 
         chatType: 'public', 
+    })
+}
+
+exports.getAllUsersGroup = async (user, name) => {
+    // encuentra los usuarios pertenecientes al grupo
+    return await Chat.findOne({ 
+        name: name, 
         users: {
             $all: [user]
         }
@@ -40,9 +46,14 @@ exports.getAllGroups = async (user) => {
 }
 
 exports.findChatById = async (groupId) => {
-    // encuentra el chat publico con cierta id
     return await Chat.findOne({ 
         _id: groupId
+    })
+}
+
+exports.findChatByName = async (groupName) => {
+    return await Chat.findOne({ 
+        name: groupName
     })
 }
 
@@ -55,7 +66,6 @@ exports.addNewMessage = async (chatId, messageId) => {
     })
 }
 
-
 exports.getAllMessages = async (chatId) => {
     const chat = await this.findById(chatId)
     return chat.messages
@@ -67,9 +77,6 @@ exports.verifyPrivateChat = async (req, res, next) => {
 
     // busca el chat privado entre los dos 
     const chat = await this.findPrivateChat(user.id, friendId)
-    console.log("soybatman")
-    console.log(chat)
-    console.log(chat.id)
     // agrega la variable chatid
     req.chatId = chat.id
     next()
@@ -104,14 +111,7 @@ exports.createPublicChat = async (name, user) => {
 
 exports.verifyPublicChat = async (req, res, next) => {
     const groupId = req.params.groupId
-    console.log("uretra")
-    console.log(groupId)
-    // busca el chat publico
     const chat = await this.findChatById(groupId)
-    console.log("rota")
-    console.log(chat)
-    console.log(chat.id)
-    // agrega la variable chatid
     req.chatGroup = chat
     next()
 }

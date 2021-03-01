@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController')
-const chatController = require('../controllers/chatController')
+const chatController = require('../controllers/chatController');
+const chat = require('../models/chat');
 
 router.get('/:chatid', userController.isAuthenticated, function(req, res, next) {
   const cuenta = req.user
@@ -28,10 +29,7 @@ router.get('/searchchatgroup/:groupId', chatController.verifyPublicChat, functio
 router.post('/creategroup', async function(req, res) {
   const name = req.body
   const userId = req.user._id
-  console.log("sosvos")
-  console.log(name)
   await chatController.createPublicChat(name.namegroup, userId)
-  //che pone bien esto del success
   req.flash('messageSuccess', 'El grupo se ha creado correctamente')
   res.redirect(req.get('referer'));
 });

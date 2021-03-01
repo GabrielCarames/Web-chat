@@ -53,6 +53,9 @@ router.get('/getfriends', userController.isAuthenticated, async function (req, r
 router.get('/getgroups', userController.isAuthenticated, async function (req, res) {
   const userId = req.user._id
   const groups = await chatController.getAllGroups(userId)
+  /*const groups = await chatController.getAllUsersGroup(userId) //a esta funcion se le deberia de meter el nombre y hacer un fiod de todos los usuarios de todos los grupos
+  console.log("joshmicucasa")
+  console.log(groups)*/
   if(groups.length){
     res.send({status: true, groups})
   }else{
