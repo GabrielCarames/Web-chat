@@ -91,7 +91,6 @@
     var friendList = document.getElementById('friendList');
     var groupsPanel = document.getElementById('groupsPanel');
     $.get("http://localhost:3000/user/getfriends", data => {
-        console.log(data.friends)
         if (data.status) {
             $.each(data.friends, function() {
                 friendsPanel.innerHTML += 
@@ -107,7 +106,7 @@
                         '</div>'+
                         '<div class="col-2">'+
                             '<button type="submit" class="btn btn-secundary" style="background-color: #666666;color: white;"'+
-                            'role="registro" onclick="hola()">Enviar</button>'+
+                            'role="registro">Enviar</button>'+
                         '</div>'+
                     '</div>'
             })
@@ -117,7 +116,8 @@
     });
 
     $.get("http://localhost:3000/user/getgroups", data => {
-        console.log(data.groups)
+        
+    
         if (data.status) {
             $.each(data.groups, function() {
                 groupsPanel.innerHTML += 
@@ -129,8 +129,9 @@
                             '<div class="row">'+
                                 '<a href="http://localhost:3000/chat/searchchatgroup/' + this._id + '">' + this.name + '</a>'+
                             '</div>'+
-                            '<div class="row">'+
-                                'Integrantes:' + $.each(data.groups.users, function() {
+                            '<div class="row">' +
+                                'Integrantes:' + $.each(this.users, function() {
+                                    console.log(this.username)
                                     this.username
                                 }) +
                             '</div>'+

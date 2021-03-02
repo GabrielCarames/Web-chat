@@ -32,15 +32,17 @@ exports.findPrivateChat = async (firstUser, secondUser) => {
 exports.getAllGroups = async () => {
     return await Chat.find({ 
         chatType: 'public', 
+    }).populate({
+        path: 'users',
+        model: 'User'
     })
 }
 
 exports.getAllUsersGroup = async (name) => {
-    // encuentra los usuarios pertenecientes al grupo
-    //che findear solo el campo users de tal grupo
+   
     return await Chat.findOne({ 
         name: name
-    }, 'users')
+    }, users)
 }
 
 exports.findChatById = async (groupId) => {
