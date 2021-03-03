@@ -50,10 +50,9 @@
     </div>
     <div class="row">
         <div id="groupsPanel" class="col-4">
-            "(foto)" grupo 1 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br> 
-            "(foto)" grupo 2 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br>
-            "(foto)" grupo 3 <br> integrantes: tachancka, erick, donpepepizzeria <br>"(mensajes)"erick dijo: soy rep uto<br><br>
+            
         </div>
+        
         <div class="col-8" style="background-color: #3c3f62;">
             <div id="friendsPanel" class="row">
 
@@ -63,27 +62,6 @@
             </div>
         </div>
     </div>
-    
-
-    <div id="modalAddfriends" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body">
-            <h2 class="uk-heading-bullet">Crear grupo</h2>
-            <form id="friendList" action="/chat/creategroup" method="POST">
-            
-            </form>
-            <p class="uk-text-right">
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
-                <button class="uk-button uk-button-primary" type="submit">Crear Grupo</button>
-            </p>
-        </div>
-    </div>
-    <li>
-        <a>
-            <button class="uk-button uk-button-default text-black" uk-toggle="target: #modalCreateGroup">asd
-                HOALTODOOBEIN
-             </button>
-        </a>
-    </li>
 </div>
 
 <script>
@@ -97,7 +75,7 @@
                     '<div class="col">' +/*
                         '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ 
                         '<a href="http://localhost:3000/chat/searchchatfriend/' + this._id +'">'+ this.username + '</a>' +
-                        ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: '+
+                        ' &nbsp&nbsp&nbsp&nbsp&nbspÚltima vez conectado: '+
                     '</div>'
                 friendList.innerHTML +=
                     '<div class="row">'+
@@ -125,15 +103,17 @@
                         '<div class="col" style= "max-width: 80px">'+
                             '<img src="' + this.avatar + '" class="avatarImg" alt="wow">'+
                         '</div>'+
-                        '<div class="col" style="margin-left: -20px">'+
+                        '<div class="col" style="margin-left: -10px">'+
                             '<div class="row">'+
                                 '<a href="http://localhost:3000/chat/searchchatgroup/' + this._id + '">' + this.name + '</a>'+
                             '</div>'+
                             '<div class="row">' +
                                 'Integrantes:' + $.each(this.users, function() {
-                                    console.log(this.username)
                                     this.username
                                 }) +
+                            '</div>'+
+                            '<div class="row">'+
+                                'Último mensaje: '+ this.messages[this.messages.length - 1].message +
                             '</div>'+
                         '</div>'+    
                     '</div>'

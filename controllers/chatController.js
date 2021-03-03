@@ -35,6 +35,9 @@ exports.getAllGroups = async () => {
     }).populate({
         path: 'users',
         model: 'User'
+    }).populate({
+        path: 'messages',
+        model: 'Message'
     })
 }
 
