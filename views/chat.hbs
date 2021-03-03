@@ -10,51 +10,51 @@
 <h4 id="username" style="color: white;" hidden>{{username}}</h4>
 
 <div class="d-flex justify-content-center">
-<div class="mb-4 mt-5 w-75" style="height:700px;">
-    <div class="row">
-        <div class="col-md-9">
-            <div class="row" style="height: 50px;">
-                <div class="col-md-4 d-flex justify-content-start">
+    <div class="mb-4 mt-5 w-75" style="height:700px;">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row" style="height: 50px;">
+                    <div class="col-md-4 d-flex justify-content-start">
+                        <h2 id="chatName" class="text-dark"></h2>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <div class="col d-flex align-items-center">
+                            <button class="uk-button uk-button-primary uk-button-small text-white"
+                                style="background-color: #24263d;">Crear grupo</button>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            <button class="uk-button uk-button-primary uk-button-small text-white"
+                                style="background-color: #24263d;">Configuracion</button>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            <button class="uk-button uk-button-primary uk-button-small text-white"
+                                style="background-color: #24263d;">Buscador</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="messageContainer" class="row uk-overflow-auto" style="height:600px;">
+                    <div id="messages">
+
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-10">
+                        <input id="messageToSend" class="uk-input" type="text" placeholder="Escribe un mensaje">
+                    </div>
+                    <div class="col d-flex align-items-cente">
+                        <button onClick="sendMessage()" class="uk-button uk-button-primary uk-button-small text-white"
+                            style="background-color: #24263d;">Enviar mensaje</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h1 class="uk-heading-divider">Amigos</h1>
+                <div id="friendsPanel" class="ml-3">
 
                 </div>
-                <div class="col d-flex justify-content-end">
-                    <div class="col d-flex align-items-center">
-                        <button class="uk-button uk-button-primary uk-button-small text-white"
-                            style="background-color: #24263d;">Crear grupo</button>
-                    </div>
-                    <div class="col d-flex align-items-center">
-                        <button class="uk-button uk-button-primary uk-button-small text-white"
-                            style="background-color: #24263d;">Configuracion</button>
-                    </div>
-                    <div class="col d-flex align-items-center">
-                        <button class="uk-button uk-button-primary uk-button-small text-white"
-                            style="background-color: #24263d;">Buscador</button>
-                    </div>
-                </div>
-            </div>
-            <div id="messageContainer" class="row uk-overflow-auto" style="height:600px;">
-                <div id="messages">
-
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-10">
-                    <input id="messageToSend" class="uk-input" type="text" placeholder="Escribe un mensaje">
-                </div>
-                <div class="col d-flex align-items-cente">
-                    <button onClick="sendMessage()" class="uk-button uk-button-primary uk-button-small text-white"
-                        style="background-color: #24263d;">Enviar mensaje</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <h1 class="uk-heading-divider">Amigos</h1>
-            <div id="friendsPanel">
-                
             </div>
         </div>
     </div>
-</div>
 </div>
 <script>
     var socket = io();
@@ -63,13 +63,23 @@
     var message = document.getElementById('messageToSend');
     var friendsPanel = document.getElementById('friendsPanel');
 
+    function setChatName(chatInfo) {
+        if (chatInfo.chatType == 'public')
+            chatName.innerHTML += chatinfo.name
+        else {
+            $.get("http://localhost:3000/chat/data/" + chatId, data => {
+                var users = data.chat.users
+                var friend = users.filter(u => u.username != username)
+                chatName.innerHTML += 'Tu chat con ' + friend[0].username
+            })
+        }
+    }
+
     $.get("http://localhost:3000/user/getfriends", data => {
         if (data.status) {
             $.each(data.friends, function () {
                 friendsPanel.innerHTML +=
-                    '<div class="col">' + this.username +
-                    ' &nbsp&nbsp&nbsp&nbsp&nbspultima vez conectado: ' + convertUntilNow(this.createdAt)
-                    '</div>'
+                    '<div class="row">' + this.username + '</div>'
             })
         } else {
             friendsPanel.innerHTML = data.message
@@ -114,11 +124,7 @@
         $.each(messages, function () {
             insertMessages(this.user.username, this.message, this.createdAt)
         })
-        if (chatinfo.chatType == 'public') {
-            chatName.innerHTML += chatinfo.name
-        } else {
-            chatName.innerHTML += chatinfo.users[0].username
-        }
+        setChatName(chatinfo)
     })
 
     // Recibe y muestra la desconexion de un usuario

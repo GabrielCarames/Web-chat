@@ -4,6 +4,11 @@ const router = express.Router();
 const userController = require('../controllers/userController')
 const chatController = require('../controllers/chatController');
 
+
+router.get('/data/:id', async function(req, res){
+  const chat = await chatController.findById(req.params.id)
+  res.send({status: true, chat})
+})
 router.get('/:chatid', userController.isAuthenticated, function(req, res, next) {
   const cuenta = req.user
   res.render('chat', cuenta)

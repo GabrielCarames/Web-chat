@@ -41,16 +41,7 @@
     width: 96.1%; 
     height: 50px;
 }
-#groupsPanel{
-    height: 700px;
-    background-color: #3c3f62;
-    border-color: red;
-}
-#friendsPanel, #friendsTwo{
-    height: 100px;
-    background-color: #3c3f62;
-    border-color: red;
-}
+
 #options{
     background-color: rgb(49, 49, 49);
 }
