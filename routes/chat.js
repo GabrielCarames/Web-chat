@@ -3,7 +3,6 @@ const router = express.Router();
 
 const userController = require('../controllers/userController')
 const chatController = require('../controllers/chatController');
-const chat = require('../models/chat');
 
 router.get('/:chatid', userController.isAuthenticated, function(req, res, next) {
   const cuenta = req.user
