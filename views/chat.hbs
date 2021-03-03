@@ -2,16 +2,18 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 <script src="//momentjs.com/downloads/moment-with-locales.js"></script>
-<div id="notifications">
+<script src="/js/converter.js"></script>
 
+<div id="notifications">
 </div>
+
 <h4 id="username" style="color: white;" hidden>{{username}}</h4>
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
             <div class="row" style="height: 50px;">
                 <div class="col-8">
-                    <h4 id="chatName" style="color: white;"> </h4>
+                    <h4 id="chatName" style="color: white;"> {{username}}</h4>
                 </div>
                 <div class="col">
                     <div id="options" class="row">
@@ -40,17 +42,13 @@
         </div>
         <div class="row">
             <input id="message" class="form-control" placeholder="Escribe un mensaje"></input>
-            <button id="send" class="btn btn-success">Send</button>
+            <button id="send" class="btn btn-success">Enviar</button>
         </div>
     </form>
-    <div id="friendsPanel" class="row">
 
-    </div>
-    <div id="friendsTwo" class="row">
-        
-    </div>
+    <div id="friendsPanel" class="row"></div>
+    <div id="friendsTwo" class="row"></div>
 </div>
-
 <script>
     var socket = io();
     var username = $("#username").text()
@@ -73,15 +71,6 @@
         }
     });
     
-
-    // convierte fecha linda
-    function convertUntilNow(datetime){
-        moment.locale('es')
-        var time = moment(datetime);
-        var untilNow = time.fromNow(true);
-        return untilNow;
-    }
-
     // Envia al server que el usuario se conecto
     socket.emit('connected', username, chatId)
 
@@ -112,7 +101,6 @@
                     '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>'+
                 '</div>'+
             '</div>'
-        
     }
 
     // Recibe y mustra el historial de mensajes
