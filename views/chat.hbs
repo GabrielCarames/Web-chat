@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div id="messageContainer" class="row uk-overflow-auto" style="height:600px;">
-                    <div id="messages">
+                    <div id="messages" class="col-md-12">
 
                     </div>
                 </div>
@@ -113,8 +113,20 @@
             '<div class="col" style= "max-width: 80px">' +
             '<img src="{{avatar}}" class="avatarImg" alt="wow">' +
             '</div>' +
-            '<div class="col" style="margin-left: -20px">' +
+            '<div class="col-md-8" style="margin-left: -20px">' +
             '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>' +
+            '</div>' +
+            '<div class="col">' +
+            '<div class="uk-inline">' +
+                '<button class="uk-button uk-button-default" type="button">Editar</button>' +
+                '<div uk-dropdown="mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="col">' +
+            '<div class="uk-inline">' +
+                '<button class="uk-button uk-button-default" type="button">Elminar</button>' +
+                '<div uk-dropdown="mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>' +
+            '</div>' +
             '</div>' +
             '</div>'
     }
