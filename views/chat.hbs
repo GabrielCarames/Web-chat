@@ -10,12 +10,14 @@
 <h4 id="username" style="color: white;" hidden>{{username}}</h4>
 
 <div class="d-flex justify-content-center">
-    <div class="mb-4 mt-5 w-75" style="height:700px;">
+    <div class="mb-4 mt-5 w-75" style="height:730px;">
         <div class="row">
             <div class="col-md-9">
                 <div class="row" style="height: 50px;">
                     <div class="col-md-4 d-flex justify-content-start">
-                        <h2 id="chatName" class="text-dark"></h2>
+                        <h2 id="chatName" class="text-dark">
+                            
+                        </h2>
                     </div>
                     <div class="col d-flex justify-content-end">
                         <div class="col d-flex align-items-center">
@@ -36,6 +38,9 @@
                     <div id="messages" class="col-md-12">
 
                     </div>
+                </div>
+                <div id="actions" class="row" style="margin-left: 2px;">
+                    
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-10">
@@ -64,8 +69,10 @@
     var friendsPanel = document.getElementById('friendsPanel');
 
     function setChatName(chatInfo) {
+        console.log("pas")
+        console.log(chatInfo)
         if (chatInfo.chatType == 'public')
-            chatName.innerHTML += chatinfo.name
+            chatName.innerHTML += chatInfo.name
         else {
             $.get("http://localhost:3000/chat/data/" + chatId, data => {
                 var users = data.chat.users
@@ -89,7 +96,14 @@
     // Envia al server que el usuario se conecto
     socket.emit('connected', username, chatId)
 
-    // Cuando un usuario envia un mensaje, se emite esta accion con el nombre y el mensaje del usuario al servidor}
+    //Si el usuario toca el enter se llama a la función para enviar el mensaje
+    message.addEventListener('keypress', function () {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+    // Cuando un usuario envia un mensaje, se emite esta accion con el nombre y el mensaje del usuario al servidor
     function sendMessage() {
         if (message.value) {
             socket.emit('message', {
@@ -109,26 +123,23 @@
 
     function insertMessages(username, message, createdAt) {
         messages.innerHTML +=
-            '<div class="row">' +
+        '<div class="row">' +
             '<div class="col" style= "max-width: 80px">' +
-            '<img src="{{avatar}}" class="avatarImg" alt="wow">' +
+                '<img src="{{avatar}}" class="avatarImg" alt="wow">' +
             '</div>' +
-            '<div class="col-md-8" style="margin-left: -20px">' +
-            '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>' +
-            '</div>' +
-            '<div class="col">' +
-            '<div class="uk-inline">' +
-                '<button class="uk-button uk-button-default" type="button">Editar</button>' +
-                '<div uk-dropdown="mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>' +
-            '</div>' +
+            '<div class="col-md-10" style="margin-left: -20px">' +
+                '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>' +
             '</div>' +
             '<div class="col">' +
-            '<div class="uk-inline">' +
-                '<button class="uk-button uk-button-default" type="button">Elminar</button>' +
-                '<div uk-dropdown="mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>'
+                '<div class="dropdown">' +
+                   '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                    '</a>' +
+                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">' +
+                        '<a class="dropdown-item" href="#">Editar</a>' +
+                       '<a class="dropdown-item" href="#">Elminar</a>' +
+                    '</div>' +
+                '</div>' +
+        '</div>'
     }
 
     // Recibe y mustra el historial de mensajes
@@ -151,7 +162,7 @@
 
     // Recibe y muestra cuando el usuario esta escribiendo
     socket.on('typing', function (data) {
-        actions.innerHTML = '<p><em style="color: white">' + data + ' esta escribiendo</em></p>'
+        actions.innerHTML = '<p><em style="color: black">' + data + ' está escribiendo</em></p>'
     });
 
     // Recibe y muestra el mensaje del usuario
