@@ -68,9 +68,25 @@
     var message = document.getElementById('messageToSend');
     var friendsPanel = document.getElementById('friendsPanel');
 
+    function deleteMessage(message) {
+        console.log(message)
+        //alert('a')
+        /*'<div id="modalDeleteMessage" uk-modal>' +
+            '<div class="uk-modal-dialog uk-modal-body">' +
+                '<h2 class="uk-heading-bullet">Eliminar mensaje</h2>' +
+                    '<div class="form-group mt-4">' +
+                        '<label for="exampleInputEmail1">¿Estas seguro que deseas eliminar el mensaje?</label>' +
+                        '<small><br>El mensaje eliminado será informado</small>' +
+                    '</div>' +
+                    '<p class="uk-text-right">' +
+                        '<button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>' +
+                        '<button id="delete" class="uk-button uk-button-primary" type="submit" href="http://localhost:3000/chat/deletemessage/' + message + '">Eliminar</button>' +
+                    '</p>' +
+            '</div>' +
+        '</div>'*/
+    }
+
     function setChatName(chatInfo) {
-        console.log("pas")
-        console.log(chatInfo)
         if (chatInfo.chatType == 'public')
             chatName.innerHTML += chatInfo.name
         else {
@@ -92,6 +108,7 @@
             friendsPanel.innerHTML = data.message
         }
     });
+    
 
     // Envia al server que el usuario se conecto
     socket.emit('connected', username, chatId)
@@ -135,8 +152,12 @@
                    '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                     '</a>' +
                     '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">' +
-                        '<a class="dropdown-item" href="#">Editar</a>' +
-                       '<a class="dropdown-item" href="#">Elminar</a>' +
+                        '<a class="dropdown-item" href="#">' +
+                            '<button class="uk-button uk-button-default">Editar</button>' +
+                        '</a>' +
+                       '<a class="dropdown-item">' +
+                            '<button class="uk-button uk-button-default" onClick = "deleteMessage('+message+')">Eliminar</button>' +
+                        '</a>' +
                     '</div>' +
                 '</div>' +
         '</div>'

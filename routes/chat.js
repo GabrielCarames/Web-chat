@@ -29,7 +29,6 @@ router.get('/searchchatgroup/:groupId', chatController.verifyPublicChat, functio
   res.redirect('/chat/' + chatGroup.id, chatGroup)
 });
 
-//METELO ACA EL GRoup
 router.post('/creategroup', async function(req, res) {
   const name = req.body
   const userId = req.user._id
@@ -38,5 +37,9 @@ router.post('/creategroup', async function(req, res) {
   res.redirect(req.get('referer'));
 });
 
+router.post('/deletemessage', async function(req, res) {
+  
+  console.log("que rep leotudo d")
+});
 
 module.exports = router;
