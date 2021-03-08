@@ -32,7 +32,7 @@ module.exports = (io) => {
     socket.on('message', async (data) => {
       const newMessage = await messageController.createAndSaveMessage(data)
       await chatController.addNewMessage(currentlyChat, newMessage._id)
-      io.emit('message', data);
+      io.emit('message', newMessage);
     });
 
     // Recibe y envia que un usuario esta escribiendo

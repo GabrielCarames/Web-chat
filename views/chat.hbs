@@ -46,7 +46,7 @@
                     <div class="col-md-10">
                         <input id="messageToSend" class="uk-input" type="text" placeholder="Escribe un mensaje">
                     </div>
-                    <div class="col d-flex align-items-cente">
+                    <div class="col d-flex align-items-center">
                         <button onClick="sendMessage()" class="uk-button uk-button-primary uk-button-small text-white"
                             style="background-color: #24263d;">Enviar mensaje</button>
                     </div>
@@ -68,8 +68,8 @@
     var message = document.getElementById('messageToSend');
     var friendsPanel = document.getElementById('friendsPanel');
 
-    function deleteMessage(message) {
-        console.log(message)
+    function deleteMessage(messageId) {
+        console.log(messageId)
         //alert('a')
         /*'<div id="modalDeleteMessage" uk-modal>' +
             '<div class="uk-modal-dialog uk-modal-body">' +
@@ -120,6 +120,7 @@
             sendMessage();
         }
     });
+
     // Cuando un usuario envia un mensaje, se emite esta accion con el nombre y el mensaje del usuario al servidor
     function sendMessage() {
         if (message.value) {
@@ -138,35 +139,37 @@
         messages.innerHTML += '<p>' + username + ' se ha conectado</p>'
     })
 
-    function insertMessages(username, message, createdAt) {
-        messages.innerHTML +=
-        '<div class="row">' +
-            '<div class="col" style= "max-width: 80px">' +
+    function insertMessages(message) {
+        messageId = message._id
+        messages.innerHTML += '<div id="' + messageId +'" class="row mt-2">'
+        messageDiv = document.getElementById(messageId);
+        messageDiv.innerHTML += 
+            '<div class="col-md-1" style=";">' +
                 '<img src="{{avatar}}" class="avatarImg" alt="wow">' +
             '</div>' +
-            '<div class="col-md-10" style="margin-left: -20px">' +
-                '<p>' + username + '&nbsp dice:&nbsp' + message + '<small> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(createdAt) + '</small> </p>' +
-            '</div>' +
-            '<div class="col">' +
-                '<div class="dropdown">' +
-                   '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    '</a>' +
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">' +
-                        '<a class="dropdown-item" href="#">' +
-                            '<button class="uk-button uk-button-default">Editar</button>' +
-                        '</a>' +
-                       '<a class="dropdown-item">' +
-                            '<button class="uk-button uk-button-default" onClick = "deleteMessage('+message+')">Eliminar</button>' +
-                        '</a>' +
-                    '</div>' +
+            '<div class="col-md-9">' +
+                '<div class="row d-flex align-items-center" style="height:30%;"> ' +
+                    '<a class="uk-text-bold uk-text-primary">' + message.user.username + '</a>' +
+                    '<small class="uk-text-muted"> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(message.createdAt) + '</small>' +
                 '</div>' +
-        '</div>'
+                '<div class="row mt-2">' +
+                    '<p>' + message.message + '</p>' +
+                '</div>' +
+            '</div>'
+        if(message.user.username == username){
+            messageDiv.innerHTML += 
+            '<div class="col d-flex align-items-center"> ' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></button>' +
+                '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage('+messageId+')"></button>' +
+            '</div>'
+        }
     }
 
     // Recibe y mustra el historial de mensajes
     socket.on('chathistory', function (messages, chatinfo) {
         $.each(messages, function () {
-            insertMessages(this.user.username, this.message, this.createdAt)
+            insertMessages(this)
         })
         setChatName(chatinfo)
     })
@@ -187,8 +190,8 @@
     });
 
     // Recibe y muestra el mensaje del usuario
-    socket.on('message', function (data, createdAtDate) {
+    socket.on('message', function (data) {
         actions.innerHTML = "";
-        insertMessages(data.username, data.message, data.createdAt)
+        insertMessages(data)
     });
 </script>
