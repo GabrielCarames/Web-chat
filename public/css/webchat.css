@@ -1,47 +1,8 @@
-#container{
-    margin-top: 50px;
-    max-width: 1600px;
-    height: 1000px;
-    color:white;
-}
-#user{
-    max-height: 90px;
-}
-#userdata{
-    background-color: rgb(49, 49, 49);
-}
-#form{
-    background-color: #3c3f62;
-    vertical-align:text-bottom;
-    height: 550px;
-    max-width: 1600px; 
-    padding-left: 0px; 
-    padding-right: 0px;
-}
-#chat{
-    background-color: #3c3f62;
-    color: white;
-    height: 500px;
-    overflow-y: scroll;  /* estas mierdas de abajo deberian poner al chat en el ultimo mensaje pero no anda, creo que es porque se debe hacer por js*/
-    overscroll-behavior-y: contain;
-    scroll-snap-type: y proximity;
-}
 .avatarImg{
     width: 50px;
     height: 50px;
 }
-#container > form > div > div > p:last-child {
-    scroll-snap-align: end;
-  }
 
-#messages{
-    height: 400px;
-}
-#message{
-    width: 96.1%; 
-    height: 50px;
-}
-
-#options{
-    background-color: rgb(49, 49, 49);
+body{
+    height: 100%;
 }
