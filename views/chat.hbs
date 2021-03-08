@@ -69,20 +69,45 @@
     var friendsPanel = document.getElementById('friendsPanel');
 
     function deleteMessage(messageId) {
-        //alert('a')
-        /*'<div id="modalDeleteMessage" uk-modal>' +
-            '<div class="uk-modal-dialog uk-modal-body">' +
-                '<h2 class="uk-heading-bullet">Eliminar mensaje</h2>' +
-                    '<div class="form-group mt-4">' +
-                        '<label for="exampleInputEmail1">¿Estas seguro que deseas eliminar el mensaje?</label>' +
-                        '<small><br>El mensaje eliminado será informado</small>' +
-                    '</div>' +
-                    '<p class="uk-text-right">' +
-                        '<button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>' +
-                        '<button id="delete" class="uk-button uk-button-primary" type="submit" href="http://localhost:3000/chat/deletemessage/' + message + '">Eliminar</button>' +
-                    '</p>' +
+        console.log(messageId)
+        alert(
+            '<div id="modalDeleteMessage" uk-modal>' +
+                '<div class="uk-modal-dialog uk-modal-body">' +
+                    '<h2 class="uk-heading-bullet">Eliminar mensaje</h2>' +
+                        '<div class="form-group mt-4">' +
+                            '<label for="exampleInputEmail1">¿Estas seguro que deseas eliminar el mensaje?</label>' +
+                            '<small><br>El mensaje eliminado será informado</small>' +
+                        '</div>' +
+                        '<p class="uk-text-right">' +
+                            '<button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>' +
+                            '<button id="delete" class="uk-button uk-button-primary" type="submit" href="http://localhost:3000/chat/deletemessage/' + messageId + '">Eliminar</button>' +
+                        '</p>' +
+                '</div>' +
+            '</div>'
+        )
+    }
+
+    function updateMessage(messageId, messageContent) {
+        var messageToUpdate = document.getElementById(messageId);
+        messageToUpdate.innerHTML += 
+        '<div class="row mt-2">' +
+            '<div class="col-md-10">' +
+                '<input id="messageToUpdate" class="uk-input" type="text"> '+ messageContent +'' +
             '</div>' +
-        '</div>'*/
+            '<div class="col d-flex align-items-center">' +
+                '<button class="uk-button uk-button-primary uk-button-small text-white"' +
+                    'style="background-color: #24263d;" href="http://localhost:3000/chat/updatemessage/' + messageToUpdate.value + '">Guardar edición</button>' +
+            '</div>' +
+        '</div>'
+        '<input>'+ messageContent +'</input>'
+    }
+
+    function copyMessage(messageId) {
+        //hola este para despuse
+        var messagecopycontent = document.getElementById(messagecontent);
+        messagecopycontent.select(); 
+        document.execCommand("copy");
+        alert("Texto copiado: " + messagecopycontent.value);
     }
 
     function setChatName(chatInfo) {
@@ -158,9 +183,10 @@
         if(message.user.username == username){
             messageDiv.innerHTML += 
             '<div class="col d-flex align-items-center"> ' +
-                '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy"></button>' +
-                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></button>' +
-                '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage('+messageId+')"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy" onClick = "copyMessage('+messageId+')"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" onClick = "updateMessage('+messageId+')"></button>' +
+                '<div id="'+messageId+'"></div>' +
+                '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage('+message.message+')"></button>' +
             '</div>'
         }
     }

@@ -26,3 +26,18 @@ exports.findByContent = async (content) => {
 exports.findByCreatorId = async (id) => {
     return Message.findOne({creatorId: id})
 }
+
+exports.findMessageById = async (messageId) => {
+    return await Message.findOne({ 
+        _id: messageId
+    })
+}
+
+exports.updateMessage = async (messageId, content) => {
+    await Message.findOneAndUpdate({_id: messageId}, 
+        {
+            $push: {
+                message: content
+        }
+    })
+}

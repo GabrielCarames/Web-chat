@@ -3,7 +3,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController')
 const chatController = require('../controllers/chatController');
-
+const messageController = require('../controllers/messageController');
 
 router.get('/data/:id', async function(req, res){
   const chat = await chatController.findById(req.params.id)
@@ -15,7 +15,6 @@ router.get('/:chatid', userController.isAuthenticated, function(req, res, next) 
 });
 
 router.get('/searchchatfriend/:friendId', chatController.verifyPrivateChat, function(req, res) {
-  console.log("roleman?")
   const chatId = req.chatId
   // obtiene el chatid que se creo en verifyPrivateChat y lo redirecciona a la ruta de arriba
   res.redirect('/chat/' + chatId)
@@ -37,9 +36,19 @@ router.post('/creategroup', async function(req, res) {
   res.redirect(req.get('referer'));
 });
 
-router.post('/deletemessage', async function(req, res) {
-  
-  console.log("que rep leotudo d")
+router.post('/deletemessage/:messageId', async function(req, res) {
+  const messageId = req.params.messageId
+  const content = "Este mensaje fué eliminado"
+  await messageController.updateMessage(messageId, content)
+  res.redirect(req.get('referer'));
+});
+
+router.post('/updatemessage/:content', async function(req, res) {
+  const content = req.params.content
+  const message = await messageController.findByContent(content)
+  const messageId = message._id
+  await messageController.updateMessage(messageId, content)
+  res.redirect(req.get('referer'));
 });
 
 module.exports = router;
