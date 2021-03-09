@@ -5,6 +5,7 @@
 <script src="/js/converter.js"></script>
 
 <div id="notifications">
+
 </div>
 
 <h4 id="username" style="color: white;" hidden>{{username}}</h4>
@@ -70,29 +71,37 @@
 
     function deleteMessage(messageId) {
         console.log(messageId)
-        alert(
-            '<div id="modalDeleteMessage" uk-modal>' +
-                '<div class="uk-modal-dialog uk-modal-body">' +
-                    '<h2 class="uk-heading-bullet">Eliminar mensaje</h2>' +
-                        '<div class="form-group mt-4">' +
-                            '<label for="exampleInputEmail1">¿Estas seguro que deseas eliminar el mensaje?</label>' +
-                            '<small><br>El mensaje eliminado será informado</small>' +
-                        '</div>' +
-                        '<p class="uk-text-right">' +
-                            '<button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>' +
-                            '<button id="delete" class="uk-button uk-button-primary" type="submit" href="http://localhost:3000/chat/deletemessage/' + messageId + '">Eliminar</button>' +
-                        '</p>' +
+        document.innerHTML += 
+        '<div id="modalDeleteMessage" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">' +
+            '<div class="modal-dialog">' +
+                '<div class="modal-content">' +
+                '<div class="modal-header">' +
+                    '<h5 class="modal-title" id="exampleModalLabel">Eliminar mensaje</h5>' +
+                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
                 '</div>' +
-            '</div>'
-        )
+                '<div class="modal-body" style="color: black;">' +
+                    '¿Estas seguro que deseas eliminar el mensaje?' +
+                    '<small><br>El mensaje eliminado será informado</small>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                    '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>' +
+                    '<button type="button" class="btn btn-primary">Eliminar mensaje</button>' +
+                '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+        $('#modalDeleteMessage').modal('show')
     }
 
-    function updateMessage(messageId, messageContent) {
-        var messageToUpdate = document.getElementById(messageId);
+    function updateMessage(messageContent) {
+        console.log(messageContent)
+        var messageToUpdate = document.getElementById(message._id);
         messageToUpdate.innerHTML += 
         '<div class="row mt-2">' +
             '<div class="col-md-10">' +
-                '<input id="messageToUpdate" class="uk-input" type="text"> '+ messageContent +'' +
+                '<input id="messageToUpdate" class="uk-input" value="'+messageContent+'" type="text">' +
             '</div>' +
             '<div class="col d-flex align-items-center">' +
                 '<button class="uk-button uk-button-primary uk-button-small text-white"' +
@@ -102,12 +111,10 @@
         '<input>'+ messageContent +'</input>'
     }
 
-    function copyMessage(messageId) {
-        //hola este para despuse
-        var messagecopycontent = document.getElementById(messagecontent);
-        messagecopycontent.select(); 
+    function copyMessage(messagecontent) {
+        //el parametro recibe el contenido del mensaje bien pero sale undefined al mismo tiempo
         document.execCommand("copy");
-        alert("Texto copiado: " + messagecopycontent.value);
+        alert("Texto copiado: " + messagecontent)
     }
 
     function setChatName(chatInfo) {
@@ -165,6 +172,8 @@
 
     function insertMessages(message) {
         messageId = message._id
+        console.log(message.message)
+        messageContent= message.message
         messages.innerHTML += '<div id="' + messageId +'" class="row mt-2">'
         messageDiv = document.getElementById(messageId);
         messageDiv.innerHTML += 
@@ -178,15 +187,15 @@
                 '</div>' +
                 '<div class="row mt-2">' +
                     '<p>' + message.message + '</p>' +
+                    '<div id="'+messageId+'"><br></div>' +
                 '</div>' +
             '</div>'
         if(message.user.username == username){
             messageDiv.innerHTML += 
             '<div class="col d-flex align-items-center"> ' +
-                '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy" onClick = "copyMessage('+messageId+')"></button>' +
-                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" onClick = "updateMessage('+messageId+')"></button>' +
-                '<div id="'+messageId+'"></div>' +
-                '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage('+message.message+')"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy" onClick = "copyMessage('+message.message+')"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" onClick = "updateMessage(messageContent)"></button>' +
+                '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage(messageId)"></button>' +
             '</div>'
         }
     }
