@@ -5,13 +5,13 @@
 <div id="container" class="container">
     <div id="user" class="row">
         <div id="userdata" class="col">
-            <div class="row" style="height: 50px;">
+            <div class="row mt-4" style="height: 80px;">
                 <div class="col-8">
-                    <h4 id="username" style="color: white;">PollitoMuertoWeb</h4>
+                    <h4 id="username">PollitoMuertoWeb</h4>
                 </div>
                 <div class="col">
-                    <div id="options" class="row">
-                        <div class="col" >
+                    <div id="options" class="row align-items-end" style="height:99px;">
+                        <div class="col d-flex justify-content-end" >
                             <div id="modalCreateGroup" uk-modal>
                                 <div class="uk-modal-dialog uk-modal-body">
                                     <h2 class="uk-heading-bullet">Crear grupo</h2>
@@ -27,16 +27,22 @@
                                     </form>
                                 </div>
                             </div>
-                            <a>
-                                <button class="uk-button uk-button-default text-white" uk-toggle="target: #modalCreateGroup">Crear grupo
-                                </button>
-                            </a>
+                            <div class="col d-flex align-items-end">
+                                <button class="uk-button uk-button-primary uk-button-small text-white"
+                                    style="background-color: #24263d;">este hijo de re mil puta me esta re jodiendoCrear grupo</button>
+                            </div>
                         </div>
                         <div class="col">
-                            Buscador
+                            <div class="col d-flex align-items-end">
+                                <button class="uk-button uk-button-primary uk-button-small text-white"
+                                    style="background-color: #24263d;">Buscador</button>
+                            </div>
                         </div>
                         <div class="col">
-                            Configuracion
+                            <div class="col d-flex align-items-end">
+                                <button class="uk-button uk-button-primary uk-button-small text-white"
+                                    style="background-color: #24263d;">Configuración</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,16 +53,14 @@
         </div>
     </div>
     <div class="row">
-        <div id="groupsPanel" class="col-4">
+        <div id="groupsPanel" class="col-6">
             
         </div>
-        
-        <div class="col-8" style="background-color: #3c3f62;">
+        <div class="vl" style="background-color: black;width:3px"></div>
+        <div class="col-4">
+            <h3>Conectados</h3>
             <div id="friendsPanel" class="row">
-
-            </div>
-            <div class="row">
-                <img src="/img/logo.jpg" alt="50%" width="50%" height="50%" style="margin-left: 250px;">
+                
             </div>
         </div>
     </div>
@@ -64,27 +68,25 @@
 
 <script>
     var friendsPanel = document.getElementById('friendsPanel');
-    var friendList = document.getElementById('friendList');
     var groupsPanel = document.getElementById('groupsPanel');
     $.get("http://localhost:3000/user/getfriends", data => {
         if (data.status) {
             $.each(data.friends, function() {
                 friendsPanel.innerHTML += 
-                    '<div class="col">' +/*
-                        '<img src=' + this.avatar + 'class="avatarImg" alt="wow">' +*/ 
+                    '<div class="col-3">' +
+                        '<img src="' + this.avatar + '" class="avatarImg" alt="wow">' +
+                    '</div>' +
+                    '<div class="col-7">' +
+                        '<div class="row d-flex align-items-center" style="height:30%;"> ' +
+                            '<a href="http://localhost:3000/chat/searchchatfriend/' + this._id +'">'+ this.username + '</a>' +
+                            //'<small class="uk-text-muted"> &nbsp&nbsp&nbsp&nbsphace ' + convertUntilNow(message.createdAt) + '</small>' +
+                        '</div>' +
+                    '</div>'
+                    /*'<div class="col">' +
+                        '<img src="' + this.avatar + '" class="avatarImg" alt="wow">' +
                         '<a href="http://localhost:3000/chat/searchchatfriend/' + this._id +'">'+ this.username + '</a>' +
                         ' &nbsp&nbsp&nbsp&nbsp&nbspÚltima vez conectado: '+
-                    '</div>'
-                friendList.innerHTML +=
-                    '<div class="row">'+
-                        '<div class="col-10">'
-                            + this.username +
-                        '</div>'+
-                        '<div class="col-2">'+
-                            '<button type="submit" class="btn btn-secundary" style="background-color: #666666;color: white;"'+
-                            'role="registro">Enviar</button>'+
-                        '</div>'+
-                    '</div>'
+                    '</div>'*/
             })
         } else {
             friendsPanel.innerHTML += data.message

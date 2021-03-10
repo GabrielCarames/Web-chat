@@ -71,6 +71,9 @@
 
     function deleteMessage(messageId) {
         console.log(messageId)
+        //la funcion recibe bien la id del mensaje pero no consigo que se muestre el modal y se envie el messageId a la ruta al mismo tiempo en este mismo espacio 
+        //si se coloca el html del modal en la parte de html de arriba, all mostrar el modal con el 'show' de abajo, no hay manera de pasarle el messageId que recibe esta funcion
+        //por eso se tiene que hacer todo desde la funcion
         document.innerHTML += 
         '<div id="modalDeleteMessage" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">' +
             '<div class="modal-dialog">' +
@@ -78,7 +81,7 @@
                 '<div class="modal-header">' +
                     '<h5 class="modal-title" id="exampleModalLabel">Eliminar mensaje</h5>' +
                     '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
+                        '<span aria-hidden="true">&times;</span>' +
                     '</button>' +
                 '</div>' +
                 '<div class="modal-body" style="color: black;">' +
@@ -87,7 +90,7 @@
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>' +
-                    '<button type="button" class="btn btn-primary">Eliminar mensaje</button>' +
+                    '<button type="button" class="btn btn-primary" href="http://localhost:3000/chat/deletemessage/' + messageId + '">Eliminar mensaje</button>' +
                 '</div>' +
                 '</div>' +
             '</div>' +
@@ -96,6 +99,8 @@
     }
 
     function updateMessage(messageContent) {
+        //probe metiendo en la funcion tanto el objeto entero del message, el messageId y el messageContent; pero en todos los casos salia algun tipo de error
+        //ahora esta todo intercalado entre message._id, messageContent por otro lado y todo desordenado
         console.log(messageContent)
         var messageToUpdate = document.getElementById(message._id);
         messageToUpdate.innerHTML += 
@@ -118,8 +123,7 @@
     }
 
     function setChatName(chatInfo) {
-        if (chatInfo.chatType == 'public')
-            chatName.innerHTML += chatInfo.name
+        if (chatInfo.chatType == 'public') chatName.innerHTML += chatInfo.name
         else {
             $.get("http://localhost:3000/chat/data/" + chatId, data => {
                 var users = data.chat.users
@@ -194,7 +198,7 @@
             messageDiv.innerHTML += 
             '<div class="col d-flex align-items-center"> ' +
                 '<button class="uk-icon-link uk-margin-small-right" uk-icon="copy" onClick = "copyMessage('+message.message+')"></button>' +
-                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" onClick = "updateMessage(messageContent)"></button>' +
+                '<button class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" onClick = "updateMessage('+message+')"></button>' +
                 '<button class="uk-icon-link" uk-icon="trash" onClick = "deleteMessage(messageId)"></button>' +
             '</div>'
         }
