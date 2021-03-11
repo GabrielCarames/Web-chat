@@ -1,11 +1,37 @@
-body{
+html, body{
+    height: 100%;
     transition: all 0.3s;
 }
-#navbar, footer{
+
+.zoom
+{
+    zoom: 120%;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+    }
+    
+    ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+    background:#24263d; 
+    border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+    background:rgb(54, 56, 58); 
+}
+
+#navbar{
+    top: 0; /* Position the navbar at the top of the page */
     background-color: #24263d;
 }
 
-.hola{
+footer{
     background-color: #24263d;
 }
 
@@ -19,28 +45,24 @@ body{
     color: white;
 }
 
-.dark-mode h2{
-    color: white;
-}
-.dark-mode h1{
+.dark-mode h4, .dark-mode h3, .dark-mode h2, .dark-mode h1{
     color: white;
 }
 
-.dark-mode .uk-input, .form-group, .uk-modal-dialog{
+.dark-mode .uk-input, .form-group, .uk-modal-dialog, .uk-button-default{
     background-color: #112034;
     color: white;
 }
-
+.dark-mode .uk-button-default:hover{
+    color: white;
+    background-color:#172e4d;
+}
 
 .white-mode{
     background-color:white;
     color: black; 
 }
 
-.white-mode h2{
-    color: black;
-}
-
-.white-mode h1{
+.white-mode h4, .white-mode h3, .white-mode h2, .white-mode h1{
     color: black;
 }

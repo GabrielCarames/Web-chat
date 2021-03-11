@@ -2,89 +2,26 @@
 
 <div class="mt-5" style="text-align: center;">
     <h1>Parches</h1>
-    <div style="margin-top: 20px;height: 200px">
-        <p>Con Parches vas a poder comunicarte con tus conocidos de la manera mas facil. <br>Mensajeate con
-            cualquier persona gracias a nuestro sistema multi-chat con el que seraz capaz de hablar con hasta cuatro
-            personas en silmuntáneo.</br>Disfruta de nuestro servicio de forma totalmente gratuita ahora mismo, o
-            descarga nuestra aplicación para escritorio.</p>
-        {{#unless username}}
-            <a href="http://localhost:3000/chat/" class="btn btn btn-lg active" role="button" aria-pressed="true"
-            style="background-color: rgb(49, 49, 49);color:white" onclick="loginAlert()">Parches Chat</a>
-        {{/unless}}
-        {{#if username}}
-            <a href="http://localhost:3000/chatindex/" class="btn btn btn-lg active" role="button" aria-pressed="true"
-            style="background-color: rgb(49, 49, 49);color:white">ParchesWeb</a>
-        {{/if}}
-        <a href="#" class="btn btn btn-lg active" role="button" aria-pressed="true"
-            style="background-color: rgb(49, 49, 49);color:white">Descargar aplicación</a>
-    </div>
-    <h3>
-        Ahora paga hijo de re mil puta
-        paga porque no vas a
-    </h3>
-    <div class="row">
-        <div class="col" style="text-align: right;">
-            <img src="/img/discord1.PNG" alt="50%" width="60%" height="60%">
+    <div class="container">
+        <div class="row">
+            <p>Con Parches vas a poder comunicarte con tus conocidos de la manera mas facil. <br>Mensajeate con
+                cualquier persona gracias a nuestro sistema multi-chat con el que seraz capaz de hablar con hasta cuatro
+                personas en silmuntáneo.</br>Disfruta de nuestro servicio de forma totalmente gratuita ahora mismo, o
+                descarga nuestra aplicación para escritorio.</p>
         </div>
-        <div class="col" style="text-align: left;">
-            <img src="/img/discord1.PNG" alt="50%" width="60%" height="60%">
-        </div>
-    </div>
-    <div id="content">
-        <div class="row" style="margin-top:30px;">
-            <div id="inside" class="card mb-3"
-                style="max-width: 1300px;margin-left:315px;margin-top:30px;">
-                <div class="row no-gutters">
-                    <div class="col-4">
-                        <img src="/img/bob.jpg" alt="50%">
-                    </div>
-                    <div class="col-8">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:white">Chats multiples</h5>
-                            <p class="card-text" style="color:white">Comparte charlas, audios, videos o archivos con
-                                multiples personas silmuntaneamente! Aprovecha esta útil función para estar en contacto
-                                y
-                                sin miedo de perderte ningún comentario.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="background-color: #fff">
-            <div id="inside" class="card mb-3"
-                style="max-width: 1300px;margin-left:315px;margin-top:30px;">
-                <div class="row no-gutters">
-                    <div class="col-4">
-                        <img src="/img/bob.jpg" alt="50%">
-                    </div>
-                    <div class="col-8">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:white">Rapido y seguro</h5>
-                            <p class="card-text" style="color:white">Conectate con el mundo de la forma mas facil y
-                                rápida.
-                                Con Parches podrás chapotear re velozmente y muy seugro si si</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="below" class="row">
-            <div class="row">
-                <div class="col">
-                <p>
-                    ¿Todavia no descargaste Parches? Hazlo ahora! hijo de re mil puta<br>
-                </p>
-            </div>
-            <div class="col">
-                <a href="#" class="btn btn btn-lg active" role="button" aria-pressed="true"
-                    style="background-color: rgb(49, 49, 49);color:white">Descargar aplicación</a>
-            </div>
-            </div>
+        <div class="row d-flex justify-content-center">
+            {{#unless username}}
+            <a href="/user/login"><button class="uk-button uk-button-default" onclick="loginAlert()">Empezar a chatear</button></a>
+            {{/unless}}
+            {{#if username}}
+            <a href="/chatindex"><button class="uk-button uk-button-default">Empezar a chatear</button></a>
+            {{/if}}
+            <a href=""><button class="uk-button uk-button-default">Descargar app</button></a>
         </div>
     </div>
 </div>
 <script>
-    function loginAlert(){
+    function loginAlert() {
         alert("Para usar Parches debes iniciar sesión");
     }
 </script>

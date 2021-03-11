@@ -33,10 +33,10 @@
     <div class="uk-navbar-left">
       <div>
         <ul class="uk-navbar-nav">
+          <li><a><button id="dark" class="uk-button uk-button-default text-white">modo oscuro</button></a>
           {{#if username}}
           <li><a href="/"><img src="{{avatar}}" class="avatarImg" alt="wow"></a></li>
           <li><a href="/user/profile"><button class="uk-button uk-button-default text-white">{{username}}</button></a>
-          <li><a><button id="dark" class="uk-button uk-button-default text-white">modo oscuro</button></a>
           </li>
           <li>
             <a>
@@ -54,8 +54,7 @@
       <div>
         <ul class="uk-navbar-nav">
           {{#if username}}
-          <li><a><button class="uk-button uk-button-default text-white" uk-toggle="target: #modalAgregarAmigo">Agregar
-                amigo</button></a></li>
+          <li><a><button class="uk-button uk-button-default text-white" uk-toggle="target: #modalAgregarAmigo">Agregar amigo</button></a></li>
           <li><a href="/user/logout"><button class="uk-button uk-button-default text-white">Cerrar sesión</button></a>
           </li>
           {{else}}
@@ -70,9 +69,10 @@
   </nav>
 
   {{>error}}
-  <section>
+  <div style="height: 70vh;">
     {{{body}}}
-    </section>
+  </div>
+
 
     <!-- formulario para agregar amigo -->
     <div id="modalAgregarAmigo" uk-modal>
@@ -91,18 +91,7 @@
         </form>
       </div>
     </div>
-    <footer>
-      <div class="uk-navbar-container" uk-navbar style="background-color: #24263d;">
 
-        <div class="uk-navbar-center">
-          <ul class="uk-navbar-nav p-2">
-            <li><a class="uk-button text-white">Términos</a></li>
-            <li><a class="uk-button text-white">Contacto</a></li>
-            <li><a class="uk-button text-white">Preguntas frecuentes</a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
 </body>
 
 <script>
