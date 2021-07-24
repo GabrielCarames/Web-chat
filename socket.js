@@ -9,7 +9,6 @@ module.exports = (io) => {
   var currentlyChat
   io.on('connection', (socket) => {
     socket.on('connected', async (username, chatId) => {
-
       socket.join(chatId)
       currentlyChat = chatId
 

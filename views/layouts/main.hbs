@@ -13,7 +13,7 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/css/uikit.min.css" />
-  <link rel='stylesheet' href='/css/main.css' />
+  <link rel='stylesheet' href='/css/main.css'/>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -101,10 +101,11 @@
   bottonToChange.addEventListener('click', e => {
     body.classList.toggle('dark-mode')
   })
-
+  console.log("hoalghoaslopdasd")
   var notifications = document.getElementById('notifications');
   function addNotifications() {
     $.get("http://localhost:3000/user/notifications", data => {
+      var notifications = document.getElementById('notifications');
       if (data.status) { // si tiene notificaciones
         notifications.innerHTML = ""
         $.each(data.notifications, function () {
@@ -117,7 +118,10 @@
   }
 
   function insertNotification(id, type, from, createdAt) {
+    console.log("soacacenterior")
+    var notifications = document.getElementById('notifications');
     if (type == 'friendRequest') {
+      console.log("soacacenterior")
       var acceptRouter = "user/acceptFriendRequest/" + id + '/' + from._id
       var refuseRouter = "user/refuseFriendRequest/" + id
       notifications.innerHTML +=

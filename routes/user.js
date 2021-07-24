@@ -63,7 +63,7 @@ router.get('/getgroups', userController.isAuthenticated, async function (req, re
 router.get('/notifications', userController.isAuthenticated, async function (req, res) {
   const userId = req.user._id
   const notificationsQuantity = await userController.getNotificationsQuantity(userId)
-
+  console.log("socaca")
   if (notificationsQuantity == 0) return res.send({status: false, message: 'No tienes notificaciones'});
   else {
     const notifications = await userController.getNotifications(userId);

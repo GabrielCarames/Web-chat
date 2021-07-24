@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col d-flex align-items-end">
-                                 <button class="uk-button uk-button-default uk-button-small">este hijo de re mil puta me esta re jodiendoCrear grupo</button>
+                                 <button class="uk-button uk-button-default uk-button-small" uk-toggle="target: #modalCreateGroup">Crear grupo</button>
                             </div>
                         </div>
                         <div class="col">
@@ -67,6 +67,7 @@
     var friendsPanel = document.getElementById('friendsPanel');
     var groupsPanel = document.getElementById('groupsPanel');
     $.get("http://localhost:3000/user/getfriends", data => {
+        console.log(data.friends)
         if (data.status) {
             $.each(data.friends, function() {
                 friendsPanel.innerHTML += 
@@ -91,8 +92,6 @@
     });
 
     $.get("http://localhost:3000/user/getgroups", data => {
-        
-    
         if (data.status) {
             $.each(data.groups, function() {
                 groupsPanel.innerHTML += 

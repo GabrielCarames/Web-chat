@@ -37,6 +37,8 @@ exports.getOneFriendByUsername = async (userId, friendUsername) => {
 
 exports.getFriends = async (userId) => {
     const user = await this.findById(userId)
+    console.log("tachanckeadoras")
+    console.log(user.friends)
     return user.friends
 }
 
