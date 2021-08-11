@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var url = "mongodb://localhost:27017/discord";
+var url = "mongodb+srv://GabrielCarames:Ab8azzEsDDsh4iCO@clusterparches.npjim.mongodb.net/webchatdb?retryWrites=true&w=majority";
 
 mongoose.connect(url, {
     useNewUrlParser: true,
