@@ -76,7 +76,7 @@
     <!-- formulario para agregar amigo -->
     <div id="modalAgregarAmigo" uk-modal>
       <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-heading-bullet">Agregar un amigo</h2>
+        <h2 class="uk-heading-bullet">Agregar a un amigo</h2>
         <form action="/user/sendfriendrequest" method="POST">
           <div class="form-group mt-4">
             <label for="exampleInputEmail1">Escribe el nombre del usuario que quieras agregar</label>
@@ -104,7 +104,7 @@
   console.log("hoalghoaslopdasd")
   var notifications = document.getElementById('notifications');
   function addNotifications() {
-    $.get("http://localhost:3000/user/notifications", data => {
+    $.get("/user/notifications", data => {
       var notifications = document.getElementById('notifications');
       if (data.status) { // si tiene notificaciones
         notifications.innerHTML = ""
