@@ -25,7 +25,7 @@ router.get('/searchchatgroup/:groupId', chatController.verifyPublicChat, functio
   console.log("rolemanaratatat?")
   console.log(chatGroup)
   // obtiene el chatid que se creo en verifyPrivateChat y lo redirecciona a la ruta de arriba
-  res.redirect('/chat/' + chatGroup.id, chatGroup)
+  res.redirect('/chat/' + chatGroup.id)
 });
 
 router.post('/creategroup', async function(req, res) {
