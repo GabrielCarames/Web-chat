@@ -38,28 +38,28 @@ Webchat
 
 > Registro/ingreso
 
-* Cuenta con secciones de registro de cuenta e ingreso. Ambas estan compuestas por un formulario, cuyos datos son verificados y almacenados en una BD en MongoDB. La autenticación e ingreso a una cuenta registrada, es administrada a través de Passport.js.
+* Cuenta con secciones de ***registro*** de cuenta e ***ingreso***. Ambas estan compuestas por un ***formulario***, cuyos datos son verificados y almacenados en una BD en ***MongoDB***. La ***autenticación*** e ingreso a una cuenta registrada, es administrada a través de ***Passport.js***.
 
 > Index
 
-* Posee una página de inicio en donde se pueden visualizar los datos de la cuenta propia, grupos pertenecientes y amigos conectados.
+* Posee una página de ***inicio*** en donde se pueden visualizar los datos de la cuenta propia, ***grupos*** pertenecientes y ***amigos conectados***.
 
 > Agregar amigos
 
-* Tiene un sistema de búsqueda de personas, a las cuales se les puede enviar una solicitud de amistad. 
+* Tiene un sistema de ***búsqueda de personas***, a las cuales se les puede enviar una ***solicitud de amistad***. 
 
 > Notificaciones
 
-* Cada usuario cuenta con una pestaña de notificaciones, en donde se podrán ver las solicitudes de amistad, y aceptarlas o rechazarlas.
+* Cada usuario cuenta con una pestaña de ***notificaciones***, en donde se podrán ver las ***solicitudes de amistad***, y aceptarlas o rechazarlas.
 
 > Chats individuales
 
-* Al momento de añadir a un amigo, se crea automaticamente un chat en donde se podran enviar y recibir mensajes en tiempo real a través de Socket.io.
+* Al momento de añadir a un amigo, se crea automaticamente un ***chat*** en donde se podran ***enviar y recibir mensajes en tiempo real*** a través de ***Socket.io***.
 
 > Chat grupales
 
-* Se pueden crear chat grupales indicando nombre del grupo y sus integrantes. Este chat cuenta con sus respectivas características anteriores.
+* Se pueden crear ***chat grupales*** indicando nombre del grupo y sus integrantes. Este chat cuenta con sus respectivas ***características anteriores***.
 
 > Modo oscuro
 
-* Dentro de la pestaña de configuración del chat, se podrá activar o desactivar el modo oscuro de la página.
+* Dentro de la pestaña de configuración del chat, se podrá activar o desactivar el ***modo oscuro*** de la página.
